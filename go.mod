@@ -1,4 +1,4 @@
-module github.com/conneroisu/pegwings-go
+module github.com/pegwings/pegwings-go
 
 go 1.23.2
 

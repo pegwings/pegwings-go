@@ -13,7 +13,7 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/conneroisu/pegwings-go"
+	"github.com/pegwings/pegwings-go"
 )
 
 var (

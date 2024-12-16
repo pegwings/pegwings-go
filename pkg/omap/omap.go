@@ -3,7 +3,7 @@ package omap
 import (
 	"fmt"
 
-	"github.com/conneroisu/pegwings-go/pkg/list"
+	"github.com/pegwings/pegwings-go/pkg/list"
 )
 
 // Pair is a generic pair.

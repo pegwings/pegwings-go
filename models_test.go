@@ -12,8 +12,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/conneroisu/pegwings-go"
-	"github.com/conneroisu/pegwings-go/pkg/test"
+	"github.com/pegwings/pegwings-go"
+	"github.com/pegwings/pegwings-go/pkg/test"
 	"github.com/stretchr/testify/assert"
 
 	_ "embed"

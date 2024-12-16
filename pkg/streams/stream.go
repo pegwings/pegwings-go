@@ -8,7 +8,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/conneroisu/pegwings-go/pkg/pegwingerrs"
+	"github.com/pegwings/pegwings-go/pkg/pegwingerrs"
 )
 
 type (

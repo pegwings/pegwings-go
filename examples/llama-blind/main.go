@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/conneroisu/pegwings-go"
+	"github.com/pegwings/pegwings-go"
 )
 
 func main() {

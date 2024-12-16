@@ -7,10 +7,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/conneroisu/pegwings-go"
-	"github.com/conneroisu/pegwings-go/extensions/composio"
-	"github.com/conneroisu/pegwings-go/pkg/test"
-	"github.com/conneroisu/pegwings-go/pkg/tools"
+	"github.com/pegwings/pegwings-go"
+	"github.com/pegwings/pegwings-go/extensions/composio"
+	"github.com/pegwings/pegwings-go/pkg/test"
+	"github.com/pegwings/pegwings-go/pkg/tools"
 	"github.com/stretchr/testify/assert"
 )
 

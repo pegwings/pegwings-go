@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/conneroisu/pegwings-go/extensions/toolhouse"
-	"github.com/conneroisu/pegwings-go/pkg/test"
-	"github.com/conneroisu/pegwings-go/pkg/tools"
+	"github.com/pegwings/pegwings-go/extensions/toolhouse"
+	"github.com/pegwings/pegwings-go/pkg/test"
+	"github.com/pegwings/pegwings-go/pkg/tools"
 	"github.com/stretchr/testify/assert"
 )
 

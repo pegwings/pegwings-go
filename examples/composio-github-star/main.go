@@ -9,9 +9,9 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/conneroisu/pegwings-go"
-	"github.com/conneroisu/pegwings-go/extensions/composio"
-	"github.com/conneroisu/pegwings-go/pkg/test"
+	"github.com/pegwings/pegwings-go"
+	"github.com/pegwings/pegwings-go/extensions/composio"
+	"github.com/pegwings/pegwings-go/pkg/test"
 )
 
 func main() {
@@ -58,7 +58,7 @@ func run(
 				Role: groq.RoleUser,
 				Content: `
 You are a github star bot. You will be given a repo name and you will star it. 
-Star the repo conneroisu/pegwings-go on GitHub.
+Star the repo pegwings/pegwings-go on GitHub.
 `,
 			},
 		},

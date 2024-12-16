@@ -7,7 +7,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/conneroisu/pegwings-go/pkg/test"
+	"github.com/pegwings/pegwings-go/pkg/test"
 )
 
 // TestErrTestErrorAccumulatorWriteFailed_Error tests the Error method of ErrTestErrorAccumulatorWriteFailed.

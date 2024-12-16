@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/conneroisu/pegwings-go/pkg/omap"
+	"github.com/pegwings/pegwings-go/pkg/omap"
 )
 
 const (

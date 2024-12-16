@@ -8,9 +8,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/conneroisu/pegwings-go/pkg/builders"
-	"github.com/conneroisu/pegwings-go/pkg/pegwingerrs"
-	"github.com/conneroisu/pegwings-go/pkg/streams"
+	"github.com/pegwings/pegwings-go/pkg/builders"
+	"github.com/pegwings/pegwings-go/pkg/pegwingerrs"
+	"github.com/pegwings/pegwings-go/pkg/streams"
 )
 
 //go:generate go run ./cmd/generate-models

@@ -9,7 +9,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/conneroisu/pegwings-go/pkg/test"
+	"github.com/pegwings/pegwings-go/pkg/test"
 	"github.com/gorilla/websocket"
 	"github.com/stretchr/testify/assert"
 )

@@ -12,7 +12,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/conneroisu/pegwings-go/pkg/builders"
+	"github.com/pegwings/pegwings-go/pkg/builders"
 	"github.com/gorilla/websocket"
 )
 

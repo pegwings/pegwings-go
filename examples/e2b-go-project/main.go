@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/conneroisu/pegwings-go"
-	"github.com/conneroisu/pegwings-go/extensions/e2b"
-	"github.com/conneroisu/pegwings-go/pkg/tools"
+	"github.com/pegwings/pegwings-go"
+	"github.com/pegwings/pegwings-go/extensions/e2b"
+	"github.com/pegwings/pegwings-go/pkg/tools"
 )
 
 var (

@@ -5,9 +5,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/conneroisu/pegwings-go"
-	"github.com/conneroisu/pegwings-go/extensions/toolhouse"
-	"github.com/conneroisu/pegwings-go/pkg/test"
+	"github.com/pegwings/pegwings-go"
+	"github.com/pegwings/pegwings-go/extensions/toolhouse"
+	"github.com/pegwings/pegwings-go/pkg/test"
 	"github.com/stretchr/testify/assert"
 )
 

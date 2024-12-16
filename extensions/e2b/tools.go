@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/conneroisu/pegwings-go"
-	"github.com/conneroisu/pegwings-go/pkg/tools"
+	"github.com/pegwings/pegwings-go"
+	"github.com/pegwings/pegwings-go/pkg/tools"
 )
 
 type (

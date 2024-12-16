@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------
--- author: [ Conner Ohnesorge ](https://github.com/conneroisu)
+-- author: [ Conner Ohnesorge ](https://github.com/pegwings)
 -- file_name: tb_Mux2t1.vhd
 -- desc: The file is a part of a larger project that includes a 2-to-1 multiplexer
 -- component and its structural implementation. It is used to test the component's

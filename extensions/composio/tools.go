@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/conneroisu/pegwings-go/pkg/builders"
-	"github.com/conneroisu/pegwings-go/pkg/tools"
+	"github.com/pegwings/pegwings-go/pkg/builders"
+	"github.com/pegwings/pegwings-go/pkg/tools"
 )
 
 type (

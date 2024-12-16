@@ -11,10 +11,10 @@ import (
 	"path/filepath"
 	"testing"
 
-	groq "github.com/conneroisu/pegwings-go"
-	"github.com/conneroisu/pegwings-go/pkg/builders"
-	"github.com/conneroisu/pegwings-go/pkg/test"
-	"github.com/conneroisu/pegwings-go/pkg/tools"
+	groq "github.com/pegwings/pegwings-go"
+	"github.com/pegwings/pegwings-go/pkg/builders"
+	"github.com/pegwings/pegwings-go/pkg/test"
+	"github.com/pegwings/pegwings-go/pkg/tools"
 	"github.com/stretchr/testify/assert"
 )
 

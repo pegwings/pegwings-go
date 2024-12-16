@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"testing"
 
-	groq "github.com/conneroisu/pegwings-go"
+	groq "github.com/pegwings/pegwings-go"
 	"github.com/stretchr/testify/assert"
 )
 

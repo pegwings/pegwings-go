@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/conneroisu/pegwings-go/extensions/jigsawstack"
-	"github.com/conneroisu/pegwings-go/pkg/test"
+	"github.com/pegwings/pegwings-go/extensions/jigsawstack"
+	"github.com/pegwings/pegwings-go/pkg/test"
 	"github.com/stretchr/testify/assert"
 )
 

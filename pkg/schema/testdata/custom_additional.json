@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/conneroisu/pegwings-go/pkg/schema/grandfather-type",
+  "$id": "https://github.com/pegwings/pegwings-go/pkg/schema/grandfather-type",
   "$ref": "#/$defs/GrandfatherType",
   "$defs": {
     "GrandfatherType": {

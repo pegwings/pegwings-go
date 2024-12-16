@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/conneroisu/pegwings-go/pkg/builders"
-	"github.com/conneroisu/pegwings-go/pkg/pegwingerrs"
-	"github.com/conneroisu/pegwings-go/pkg/schema"
+	"github.com/pegwings/pegwings-go/pkg/builders"
+	"github.com/pegwings/pegwings-go/pkg/pegwingerrs"
+	"github.com/pegwings/pegwings-go/pkg/schema"
 )
 
 // ChatCompletion method is an API call to create a chat completion.

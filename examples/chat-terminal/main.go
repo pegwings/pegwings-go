@@ -10,7 +10,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/conneroisu/pegwings-go"
+	"github.com/pegwings/pegwings-go"
 )
 
 var (

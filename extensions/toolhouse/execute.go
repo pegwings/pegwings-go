@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/conneroisu/pegwings-go"
-	"github.com/conneroisu/pegwings-go/pkg/builders"
-	"github.com/conneroisu/pegwings-go/pkg/tools"
+	"github.com/pegwings/pegwings-go"
+	"github.com/pegwings/pegwings-go/pkg/builders"
+	"github.com/pegwings/pegwings-go/pkg/tools"
 )
 
 type (

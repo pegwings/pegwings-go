@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/conneroisu/pegwings-go/pkg/builders"
+	"github.com/pegwings/pegwings-go/pkg/builders"
 )
 
 const (

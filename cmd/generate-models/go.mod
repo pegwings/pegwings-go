@@ -1,4 +1,4 @@
-module github.com/conneroisu/pegwings-go/cmd/models
+module github.com/pegwings/pegwings-go/cmd/models
 
 go 1.23.2
 

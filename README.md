@@ -1,8 +1,8 @@
 # pegwings-go
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/conneroisu/pegwings-go.svg)](https://pkg.go.dev/github.com/conneroisu/pegwings-go)
-[![Go Report Card](https://goreportcard.com/badge/github.com/conneroisu/pegwings-go)](https://goreportcard.com/report/github.com/conneroisu/pegwings-go)
-[![Coverage Status](https://coveralls.io/repos/github/conneroisu/pegwings-go/badge.svg?branch=main)](https://coveralls.io/github/conneroisu/pegwings-go?branch=main)
+[![Go Reference](https://pkg.go.dev/badge/github.com/pegwings/pegwings-go.svg)](https://pkg.go.dev/github.com/pegwings/pegwings-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/pegwings/pegwings-go)](https://goreportcard.com/report/github.com/pegwings/pegwings-go)
+[![Coverage Status](https://coveralls.io/repos/github/pegwings/pegwings-go/badge.svg?branch=main)](https://coveralls.io/github/pegwings/pegwings-go?branch=main)
 [![PhormAI](https://img.shields.io/badge/Phorm-Ask_AI-%23F2777A.svg?&logo=data:image/svg+xml)](https://www.phorm.ai/query?projectId=0634251d-5a98-4c37-ac2f-385b588ce3d3)
 
 ## Features
@@ -15,20 +15,20 @@
 - Supports Tool Use.
 - Supports Function Calling.
 - JSON Schema Generation from structs.
-- Supports [Toolhouse](https://app.toolhouse.ai/) function calling. [Extention](https://github.com/conneroisu/pegwings-go/tree/main/extensions/toolhouse)
-- Supports [E2b](https://e2b.dev/) function calling. [Extention](https://github.com/conneroisu/pegwings-go/tree/main/extensions/e2b)
-- Supports [Composio](https://composio.dev/) function calling. [Extention](https://github.com/conneroisu/pegwings-go/tree/main/extensions/composio)
-- Supports [Jigsaw Stack](https://jigsawstack.com/) function calling. [Extention](https://github.com/conneroisu/pegwings-go/tree/main/extensions/jigsawstack)
+- Supports [Toolhouse](https://app.toolhouse.ai/) function calling. [Extention](https://github.com/pegwings/pegwings-go/tree/main/extensions/toolhouse)
+- Supports [E2b](https://e2b.dev/) function calling. [Extention](https://github.com/pegwings/pegwings-go/tree/main/extensions/e2b)
+- Supports [Composio](https://composio.dev/) function calling. [Extention](https://github.com/pegwings/pegwings-go/tree/main/extensions/composio)
+- Supports [Jigsaw Stack](https://jigsawstack.com/) function calling. [Extention](https://github.com/pegwings/pegwings-go/tree/main/extensions/jigsawstack)
 
 ## Installation
 
 ```bash
-go get github.com/conneroisu/pegwings-go
+go get github.com/pegwings/pegwings-go
 ```
 
 ## Examples
 
-For introductory examples, see the [examples](https://github.com/conneroisu/pegwings-go/tree/main/examples) directory.
+For introductory examples, see the [examples](https://github.com/pegwings/pegwings-go/tree/main/examples) directory.
 
 - [audio](/examples/audio-lex-fridman)
 - [json](/examples/json-chat)
@@ -40,7 +40,7 @@ For introductory examples, see the [examples](https://github.com/conneroisu/pegw
 - [Star a Github Repository using Composio and pegwings-go](/examples/composio-github-star)
 
 External Repositories using pegwings-go:
-- [Automatic Git Commit Message Generator](https://github.com/conneroisu/gita)
+- [Automatic Git Commit Message Generator](https://github.com/pegwings/gita)
 
 
 ## Development
@@ -78,7 +78,7 @@ The following documentation is generated from the source code using [gomarkdoc](
 # groq
 
 ```go
-import "github.com/conneroisu/pegwings-go"
+import "github.com/pegwings/pegwings-go"
 ```
 
 Package groq provides a unofficial client for the Groq API.
@@ -392,7 +392,7 @@ var (
 ```
 
 <a name="AudioMultipartForm"></a>
-## func [AudioMultipartForm](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L625>)
+## func [AudioMultipartForm](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L625>)
 
 ```go
 func AudioMultipartForm(request AudioRequest, b builders.FormBuilder) error
@@ -401,7 +401,7 @@ func AudioMultipartForm(request AudioRequest, b builders.FormBuilder) error
 AudioMultipartForm creates a form with audio file contents and the name of the model to use for audio processing.
 
 <a name="AudioModel"></a>
-## type [AudioModel](<https://github.com/conneroisu/pegwings-go/blob/main/models.go#L20>)
+## type [AudioModel](<https://github.com/pegwings/pegwings-go/blob/main/models.go#L20>)
 
 AudioModel is the type for audio models present on the groq api.
 
@@ -410,7 +410,7 @@ type AudioModel Model
 ```
 
 <a name="AudioRequest"></a>
-## type [AudioRequest](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L526-L544>)
+## type [AudioRequest](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L526-L544>)
 
 AudioRequest represents a request structure for audio API.
 
@@ -437,7 +437,7 @@ type AudioRequest struct {
 ```
 
 <a name="AudioResponse"></a>
-## type [AudioResponse](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L546-L561>)
+## type [AudioResponse](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L546-L561>)
 
 AudioResponse represents a response structure for audio API.
 
@@ -461,7 +461,7 @@ type AudioResponse struct {
 ```
 
 <a name="AudioResponse.SetHeader"></a>
-### func \(\*AudioResponse\) [SetHeader](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L608>)
+### func \(\*AudioResponse\) [SetHeader](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L608>)
 
 ```go
 func (r *AudioResponse) SetHeader(header http.Header)
@@ -470,7 +470,7 @@ func (r *AudioResponse) SetHeader(header http.Header)
 SetHeader sets the header of the response.
 
 <a name="ChatCompletionChoice"></a>
-## type [ChatCompletionChoice](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L191-L202>)
+## type [ChatCompletionChoice](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L191-L202>)
 
 ChatCompletionChoice represents the chat completion choice.
 
@@ -490,7 +490,7 @@ type ChatCompletionChoice struct {
 ```
 
 <a name="ChatCompletionMessage"></a>
-## type [ChatCompletionMessage](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L54-L75>)
+## type [ChatCompletionMessage](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L54-L75>)
 
 ChatCompletionMessage represents the chat completion message.
 
@@ -520,7 +520,7 @@ type ChatCompletionMessage struct {
 ```
 
 <a name="ChatCompletionMessage.MarshalJSON"></a>
-### func \(ChatCompletionMessage\) [MarshalJSON](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L362>)
+### func \(ChatCompletionMessage\) [MarshalJSON](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L362>)
 
 ```go
 func (m ChatCompletionMessage) MarshalJSON() ([]byte, error)
@@ -531,7 +531,7 @@ MarshalJSON method implements the json.Marshaler interface.
 It exists to allow for the use of the multi\-part content field.
 
 <a name="ChatCompletionMessage.UnmarshalJSON"></a>
-### func \(\*ChatCompletionMessage\) [UnmarshalJSON](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L393>)
+### func \(\*ChatCompletionMessage\) [UnmarshalJSON](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L393>)
 
 ```go
 func (m *ChatCompletionMessage) UnmarshalJSON(bs []byte) (err error)
@@ -542,7 +542,7 @@ UnmarshalJSON method implements the json.Unmarshaler interface.
 It exists to allow for the use of the multi\-part content field.
 
 <a name="ChatCompletionRequest"></a>
-## type [ChatCompletionRequest](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L104-L162>)
+## type [ChatCompletionRequest](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L104-L162>)
 
 ChatCompletionRequest represents a request structure for the chat completion API.
 
@@ -609,7 +609,7 @@ type ChatCompletionRequest struct {
 ```
 
 <a name="ChatCompletionResponse"></a>
-## type [ChatCompletionResponse](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L205-L222>)
+## type [ChatCompletionResponse](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L205-L222>)
 
 ChatCompletionResponse represents a response structure for chat completion API.
 
@@ -635,7 +635,7 @@ type ChatCompletionResponse struct {
 ```
 
 <a name="ChatCompletionResponse.SetHeader"></a>
-### func \(\*ChatCompletionResponse\) [SetHeader](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L436>)
+### func \(\*ChatCompletionResponse\) [SetHeader](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L436>)
 
 ```go
 func (r *ChatCompletionResponse) SetHeader(h http.Header)
@@ -644,7 +644,7 @@ func (r *ChatCompletionResponse) SetHeader(h http.Header)
 SetHeader sets the header of the response.
 
 <a name="ChatCompletionResponseFormat"></a>
-## type [ChatCompletionResponseFormat](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L77-L83>)
+## type [ChatCompletionResponseFormat](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L77-L83>)
 
 ChatCompletionResponseFormat is the chat completion response format.
 
@@ -659,7 +659,7 @@ type ChatCompletionResponseFormat struct {
 ```
 
 <a name="ChatCompletionResponseFormatJSONSchema"></a>
-## type [ChatCompletionResponseFormatJSONSchema](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L86-L101>)
+## type [ChatCompletionResponseFormatJSONSchema](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L86-L101>)
 
 ChatCompletionResponseFormatJSONSchema is the chat completion response format json schema.
 
@@ -683,7 +683,7 @@ type ChatCompletionResponseFormatJSONSchema struct {
 ```
 
 <a name="ChatCompletionStream"></a>
-## type [ChatCompletionStream](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L297-L299>)
+## type [ChatCompletionStream](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L297-L299>)
 
 ChatCompletionStream is a stream of ChatCompletionStreamResponse.
 
@@ -694,7 +694,7 @@ type ChatCompletionStream struct {
 ```
 
 <a name="ChatCompletionStreamChoice"></a>
-## type [ChatCompletionStreamChoice](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L237-L244>)
+## type [ChatCompletionStreamChoice](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L237-L244>)
 
 ChatCompletionStreamChoice represents a response structure for chat completion API.
 
@@ -710,7 +710,7 @@ type ChatCompletionStreamChoice struct {
 ```
 
 <a name="ChatCompletionStreamChoiceDelta"></a>
-## type [ChatCompletionStreamChoiceDelta](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L225-L234>)
+## type [ChatCompletionStreamChoiceDelta](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L225-L234>)
 
 ChatCompletionStreamChoiceDelta represents a response structure for chat completion API.
 
@@ -728,7 +728,7 @@ type ChatCompletionStreamChoiceDelta struct {
 ```
 
 <a name="ChatCompletionStreamResponse"></a>
-## type [ChatCompletionStreamResponse](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L262-L295>)
+## type [ChatCompletionStreamResponse](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L262-L295>)
 
 ChatCompletionStreamResponse represents a response structure for chat completion API.
 
@@ -770,7 +770,7 @@ type ChatCompletionStreamResponse struct {
 ```
 
 <a name="ChatMessageImageURL"></a>
-## type [ChatMessageImageURL](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L37-L42>)
+## type [ChatMessageImageURL](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L37-L42>)
 
 ChatMessageImageURL represents the chat message image url.
 
@@ -784,7 +784,7 @@ type ChatMessageImageURL struct {
 ```
 
 <a name="ChatMessagePart"></a>
-## type [ChatMessagePart](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L45-L52>)
+## type [ChatMessagePart](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L45-L52>)
 
 ChatMessagePart represents the chat message part of a chat completion message.
 
@@ -800,7 +800,7 @@ type ChatMessagePart struct {
 ```
 
 <a name="ChatMessagePartType"></a>
-## type [ChatMessagePartType](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L27>)
+## type [ChatMessagePartType](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L27>)
 
 ChatMessagePartType is the chat message part type.
 
@@ -811,7 +811,7 @@ type ChatMessagePartType string
 ```
 
 <a name="ChatModel"></a>
-## type [ChatModel](<https://github.com/conneroisu/pegwings-go/blob/main/models.go#L14>)
+## type [ChatModel](<https://github.com/pegwings/pegwings-go/blob/main/models.go#L14>)
 
 ChatModel is the type for chat models present on the groq api.
 
@@ -820,7 +820,7 @@ type ChatModel Model
 ```
 
 <a name="Client"></a>
-## type [Client](<https://github.com/conneroisu/pegwings-go/blob/main/client.go#L22-L34>)
+## type [Client](<https://github.com/pegwings/pegwings-go/blob/main/client.go#L22-L34>)
 
 Client is a Groq api client.
 
@@ -831,7 +831,7 @@ type Client struct {
 ```
 
 <a name="NewClient"></a>
-### func [NewClient](<https://github.com/conneroisu/pegwings-go/blob/main/client.go#L55>)
+### func [NewClient](<https://github.com/pegwings/pegwings-go/blob/main/client.go#L55>)
 
 ```go
 func NewClient(groqAPIKey string, opts ...Opts) (*Client, error)
@@ -840,7 +840,7 @@ func NewClient(groqAPIKey string, opts ...Opts) (*Client, error)
 NewClient creates a new Groq client.
 
 <a name="Client.ChatCompletion"></a>
-### func \(\*Client\) [ChatCompletion](<https://github.com/conneroisu/pegwings-go/blob/main/chat.go#L18-L21>)
+### func \(\*Client\) [ChatCompletion](<https://github.com/pegwings/pegwings-go/blob/main/chat.go#L18-L21>)
 
 ```go
 func (c *Client) ChatCompletion(ctx context.Context, request ChatCompletionRequest) (response ChatCompletionResponse, err error)
@@ -849,7 +849,7 @@ func (c *Client) ChatCompletion(ctx context.Context, request ChatCompletionReque
 ChatCompletion method is an API call to create a chat completion.
 
 <a name="Client.ChatCompletionJSON"></a>
-### func \(\*Client\) [ChatCompletionJSON](<https://github.com/conneroisu/pegwings-go/blob/main/chat.go#L72-L76>)
+### func \(\*Client\) [ChatCompletionJSON](<https://github.com/pegwings/pegwings-go/blob/main/chat.go#L72-L76>)
 
 ```go
 func (c *Client) ChatCompletionJSON(ctx context.Context, request ChatCompletionRequest, output any) (err error)
@@ -858,7 +858,7 @@ func (c *Client) ChatCompletionJSON(ctx context.Context, request ChatCompletionR
 ChatCompletionJSON method is an API call to create a chat completion w/ object output.
 
 <a name="Client.ChatCompletionStream"></a>
-### func \(\*Client\) [ChatCompletionStream](<https://github.com/conneroisu/pegwings-go/blob/main/chat.go#L44-L47>)
+### func \(\*Client\) [ChatCompletionStream](<https://github.com/pegwings/pegwings-go/blob/main/chat.go#L44-L47>)
 
 ```go
 func (c *Client) ChatCompletionStream(ctx context.Context, request ChatCompletionRequest) (stream *ChatCompletionStream, err error)
@@ -867,7 +867,7 @@ func (c *Client) ChatCompletionStream(ctx context.Context, request ChatCompletio
 ChatCompletionStream method is an API call to create a chat completion w/ streaming support.
 
 <a name="Client.CreateTranscription"></a>
-### func \(\*Client\) [CreateTranscription](<https://github.com/conneroisu/pegwings-go/blob/main/audio.go#L14-L17>)
+### func \(\*Client\) [CreateTranscription](<https://github.com/pegwings/pegwings-go/blob/main/audio.go#L14-L17>)
 
 ```go
 func (c *Client) CreateTranscription(ctx context.Context, request AudioRequest) (AudioResponse, error)
@@ -878,7 +878,7 @@ CreateTranscription calls the transcriptions endpoint with the given request.
 Returns transcribed text in the response\_format specified in the request.
 
 <a name="Client.CreateTranslation"></a>
-### func \(\*Client\) [CreateTranslation](<https://github.com/conneroisu/pegwings-go/blob/main/audio.go#L24-L27>)
+### func \(\*Client\) [CreateTranslation](<https://github.com/pegwings/pegwings-go/blob/main/audio.go#L24-L27>)
 
 ```go
 func (c *Client) CreateTranslation(ctx context.Context, request AudioRequest) (AudioResponse, error)
@@ -889,7 +889,7 @@ CreateTranslation calls the translations endpoint with the given request.
 Returns the translated text in the response\_format specified in the request.
 
 <a name="Client.Moderate"></a>
-### func \(\*Client\) [Moderate](<https://github.com/conneroisu/pegwings-go/blob/main/moderation.go#L14-L18>)
+### func \(\*Client\) [Moderate](<https://github.com/pegwings/pegwings-go/blob/main/moderation.go#L14-L18>)
 
 ```go
 func (c *Client) Moderate(ctx context.Context, messages []ChatCompletionMessage, model ModerationModel) (response Moderation, err error)
@@ -898,7 +898,7 @@ func (c *Client) Moderate(ctx context.Context, messages []ChatCompletionMessage,
 Moderate performs a moderation api call over a string. Input can be an array or slice but a string will reduce the complexity.
 
 <a name="FinishReason"></a>
-## type [FinishReason](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L313>)
+## type [FinishReason](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L313>)
 
 FinishReason is the finish reason.
 
@@ -931,7 +931,7 @@ const (
 ```
 
 <a name="FinishReason.MarshalJSON"></a>
-### func \(FinishReason\) [MarshalJSON](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L426>)
+### func \(FinishReason\) [MarshalJSON](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L426>)
 
 ```go
 func (r FinishReason) MarshalJSON() ([]byte, error)
@@ -940,7 +940,7 @@ func (r FinishReason) MarshalJSON() ([]byte, error)
 MarshalJSON implements the json.Marshaler interface.
 
 <a name="Format"></a>
-## type [Format](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L441>)
+## type [Format](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L441>)
 
 Format is the format of a response. string
 
@@ -978,7 +978,7 @@ const (
 ```
 
 <a name="ImageURLDetail"></a>
-## type [ImageURLDetail](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L23>)
+## type [ImageURLDetail](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L23>)
 
 ImageURLDetail is the detail of the image at the URL.
 
@@ -989,7 +989,7 @@ type ImageURLDetail string
 ```
 
 <a name="LogProbs"></a>
-## type [LogProbs](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L164-L180>)
+## type [LogProbs](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L164-L180>)
 
 LogProbs is the top\-level structure containing the log probability information.
 
@@ -1014,7 +1014,7 @@ type LogProbs struct {
 ```
 
 <a name="Model"></a>
-## type [Model](<https://github.com/conneroisu/pegwings-go/blob/main/models.go#L11>)
+## type [Model](<https://github.com/pegwings/pegwings-go/blob/main/models.go#L11>)
 
 Model is a ai model accessible through the groq api.
 
@@ -1023,7 +1023,7 @@ type Model string
 ```
 
 <a name="Moderation"></a>
-## type [Moderation](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L301-L306>)
+## type [Moderation](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L301-L306>)
 
 Moderation represents the response of a moderation request.
 
@@ -1037,7 +1037,7 @@ type Moderation struct {
 ```
 
 <a name="ModerationModel"></a>
-## type [ModerationModel](<https://github.com/conneroisu/pegwings-go/blob/main/models.go#L17>)
+## type [ModerationModel](<https://github.com/pegwings/pegwings-go/blob/main/models.go#L17>)
 
 ModerationModel is the type for moderation models present on the groq api.
 
@@ -1046,7 +1046,7 @@ type ModerationModel Model
 ```
 
 <a name="Opts"></a>
-## type [Opts](<https://github.com/conneroisu/pegwings-go/blob/main/client.go#L36>)
+## type [Opts](<https://github.com/pegwings/pegwings-go/blob/main/client.go#L36>)
 
 Opts is a function that sets options for a Groq client.
 
@@ -1055,7 +1055,7 @@ type Opts func(*Client)
 ```
 
 <a name="WithBaseURL"></a>
-### func [WithBaseURL](<https://github.com/conneroisu/pegwings-go/blob/main/client.go#L45>)
+### func [WithBaseURL](<https://github.com/pegwings/pegwings-go/blob/main/client.go#L45>)
 
 ```go
 func WithBaseURL(baseURL string) Opts
@@ -1064,7 +1064,7 @@ func WithBaseURL(baseURL string) Opts
 WithBaseURL sets the base URL for the Groq client.
 
 <a name="WithClient"></a>
-### func [WithClient](<https://github.com/conneroisu/pegwings-go/blob/main/client.go#L40>)
+### func [WithClient](<https://github.com/pegwings/pegwings-go/blob/main/client.go#L40>)
 
 ```go
 func WithClient(client *http.Client) Opts
@@ -1073,7 +1073,7 @@ func WithClient(client *http.Client) Opts
 WithClient sets the client for the Groq client.
 
 <a name="WithLogger"></a>
-### func [WithLogger](<https://github.com/conneroisu/pegwings-go/blob/main/client.go#L50>)
+### func [WithLogger](<https://github.com/pegwings/pegwings-go/blob/main/client.go#L50>)
 
 ```go
 func WithLogger(logger *slog.Logger) Opts
@@ -1082,7 +1082,7 @@ func WithLogger(logger *slog.Logger) Opts
 WithLogger sets the logger for the Groq client.
 
 <a name="PromptAnnotation"></a>
-## type [PromptAnnotation](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L33-L35>)
+## type [PromptAnnotation](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L33-L35>)
 
 PromptAnnotation represents the prompt annotation.
 
@@ -1093,7 +1093,7 @@ type PromptAnnotation struct {
 ```
 
 <a name="RateLimitHeaders"></a>
-## type [RateLimitHeaders](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L443-L460>)
+## type [RateLimitHeaders](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L443-L460>)
 
 RateLimitHeaders struct represents Groq rate limits headers.
 
@@ -1119,7 +1119,7 @@ type RateLimitHeaders struct {
 ```
 
 <a name="ResetTime"></a>
-## type [ResetTime](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L463>)
+## type [ResetTime](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L463>)
 
 ResetTime is a time.Time wrapper for the rate limit reset time. string
 
@@ -1128,7 +1128,7 @@ type ResetTime string
 ```
 
 <a name="ResetTime.String"></a>
-### func \(ResetTime\) [String](<https://github.com/conneroisu/pegwings-go/blob/main/client.go#L190>)
+### func \(ResetTime\) [String](<https://github.com/pegwings/pegwings-go/blob/main/client.go#L190>)
 
 ```go
 func (r ResetTime) String() string
@@ -1137,7 +1137,7 @@ func (r ResetTime) String() string
 String returns the string representation of the ResetTime.
 
 <a name="ResetTime.Time"></a>
-### func \(ResetTime\) [Time](<https://github.com/conneroisu/pegwings-go/blob/main/client.go#L195>)
+### func \(ResetTime\) [Time](<https://github.com/pegwings/pegwings-go/blob/main/client.go#L195>)
 
 ```go
 func (r ResetTime) Time() time.Time
@@ -1146,7 +1146,7 @@ func (r ResetTime) Time() time.Time
 Time returns the time.Time representation of the ResetTime.
 
 <a name="Role"></a>
-## type [Role](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L31>)
+## type [Role](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L31>)
 
 Role is the role of the chat completion message.
 
@@ -1157,7 +1157,7 @@ type Role string
 ```
 
 <a name="Segments"></a>
-## type [Segments](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L573-L596>)
+## type [Segments](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L573-L596>)
 
 Segments is the segments of the response.
 
@@ -1189,7 +1189,7 @@ type Segments []struct {
 ```
 
 <a name="StreamOptions"></a>
-## type [StreamOptions](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L246-L259>)
+## type [StreamOptions](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L246-L259>)
 
 StreamOptions represents the stream options.
 
@@ -1211,7 +1211,7 @@ type StreamOptions struct {
 ```
 
 <a name="TopLogProbs"></a>
-## type [TopLogProbs](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L182-L189>)
+## type [TopLogProbs](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L182-L189>)
 
 TopLogProbs represents the top log probs.
 
@@ -1227,7 +1227,7 @@ type TopLogProbs struct {
 ```
 
 <a name="TranscriptionTimestampGranularity"></a>
-## type [TranscriptionTimestampGranularity](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L524>)
+## type [TranscriptionTimestampGranularity](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L524>)
 
 TranscriptionTimestampGranularity is the timestamp granularity for the transcription.
 
@@ -1251,7 +1251,7 @@ const (
 ```
 
 <a name="Usage"></a>
-## type [Usage](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L465-L469>)
+## type [Usage](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L465-L469>)
 
 Usage Represents the total token usage per request to Groq.
 
@@ -1264,7 +1264,7 @@ type Usage struct {
 ```
 
 <a name="Words"></a>
-## type [Words](<https://github.com/conneroisu/pegwings-go/blob/main/domain.go#L563-L571>)
+## type [Words](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L563-L571>)
 
 Words is the words of the audio response.
 

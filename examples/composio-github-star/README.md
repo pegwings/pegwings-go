@@ -17,5 +17,5 @@ Congratulations! You’ve just:
 
     🔐 Authenticated your GitHub account with Composio
     🛠 Fetched GitHub tools for the llm
-    ⭐ Instructed the AI to star the conneroisu/pegwings-go repository
+    ⭐ Instructed the AI to star the pegwings/pegwings-go repository
     ✅ Successfully executed the action on GitHub

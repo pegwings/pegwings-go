@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/conneroisu/pegwings-go/extensions/composio"
-	"github.com/conneroisu/pegwings-go/pkg/test"
+	"github.com/pegwings/pegwings-go/extensions/composio"
+	"github.com/pegwings/pegwings-go/pkg/test"
 	"github.com/stretchr/testify/assert"
 )
 
