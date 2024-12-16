@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/conneroisu/pegwings-go/pkg/builders"
-	"github.com/conneroisu/pegwings-go/pkg/groqerr"
+	"github.com/conneroisu/pegwings-go/pkg/pegwingerrs"
 	"github.com/conneroisu/pegwings-go/pkg/schema"
 	"github.com/conneroisu/pegwings-go/pkg/streams"
 	"github.com/conneroisu/pegwings-go/pkg/tools"
@@ -355,7 +355,7 @@ const (
 // It exists to allow for the use of the multi-part content field.
 func (m ChatCompletionMessage) MarshalJSON() ([]byte, error) {
 	if m.Content != "" && m.MultiContent != nil {
-		return nil, &groqerr.ErrContentFieldsMisused{}
+		return nil, &pegwingerrs.ErrContentFieldsMisused{}
 	}
 	if len(m.MultiContent) > 0 {
 		msg := struct {

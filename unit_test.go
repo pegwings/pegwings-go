@@ -19,8 +19,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/conneroisu/pegwings-go"
-	"github.com/conneroisu/pegwings-go/pkg/groqerr"
+	groq "github.com/conneroisu/pegwings-go"
+	"github.com/conneroisu/pegwings-go/pkg/pegwingerrs"
 	"github.com/conneroisu/pegwings-go/pkg/test"
 	"github.com/stretchr/testify/assert"
 )
@@ -309,7 +309,7 @@ func TestChatCompletionStreamError(t *testing.T) {
 	defer stream.Close()
 	_, streamErr := stream.Recv()
 	a.Error(streamErr, "stream.Recv() did not return error")
-	var apiErr *groqerr.APIError
+	var apiErr *pegwingerrs.APIError
 	if !errors.As(streamErr, &apiErr) {
 		t.Errorf("stream.Recv() did not return APIError")
 	}
@@ -499,7 +499,7 @@ func TestChatCompletionStreamErrorWithDataPrefix(t *testing.T) {
 	defer stream.Close()
 	_, streamErr := stream.Recv()
 	a.Error(streamErr, "stream.Recv() did not return error")
-	var apiErr *groqerr.APIError
+	var apiErr *pegwingerrs.APIError
 	if !errors.As(streamErr, &apiErr) {
 		t.Errorf("stream.Recv() did not return APIError")
 	}
@@ -538,7 +538,7 @@ func TestChatCompletionStreamRateLimitError(t *testing.T) {
 			Stream: true,
 		},
 	)
-	var apiErr *groqerr.APIError
+	var apiErr *pegwingerrs.APIError
 	if !errors.As(err, &apiErr) {
 		t.Errorf(
 			"TestChatCompletionStreamRateLimitError did not return APIError",

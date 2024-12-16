@@ -8,7 +8,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/conneroisu/pegwings-go/pkg/groqerr"
+	"github.com/conneroisu/pegwings-go/pkg/pegwingerrs"
 )
 
 type (
@@ -18,7 +18,7 @@ type (
 	}
 	// DefaultErrorAccumulator is a default implementation of ErrorAccumulator
 	DefaultErrorAccumulator struct {
-		Buffer groqerr.ErrorBuffer
+		Buffer pegwingerrs.ErrorBuffer
 	}
 	// StreamReader is a stream reader.
 	StreamReader[T any] struct {
@@ -81,7 +81,7 @@ func (stream *StreamReader[T]) processLines() (T, error) {
 			}
 			emptyMessagesCount++
 			if emptyMessagesCount > stream.emptyMessagesLimit {
-				return *new(T), groqerr.ErrTooManyEmptyStreamMessages{}
+				return *new(T), pegwingerrs.ErrTooManyEmptyStreamMessages{}
 			}
 			continue
 		}
@@ -100,7 +100,7 @@ func (stream *StreamReader[T]) processLines() (T, error) {
 }
 
 // UnmarshalError unmarshals the error response.
-func (stream *StreamReader[T]) UnmarshalError() (errResp *groqerr.ErrorResponse) {
+func (stream *StreamReader[T]) UnmarshalError() (errResp *pegwingerrs.ErrorResponse) {
 	errBytes := stream.ErrAccumulator.Bytes()
 	if len(errBytes) == 0 {
 		return

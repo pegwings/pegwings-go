@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/conneroisu/pegwings-go"
-	"github.com/conneroisu/pegwings-go/pkg/groqerr"
+	groq "github.com/conneroisu/pegwings-go"
+	"github.com/conneroisu/pegwings-go/pkg/pegwingerrs"
 	"github.com/conneroisu/pegwings-go/pkg/streams"
 	"github.com/conneroisu/pegwings-go/pkg/test"
 	"github.com/stretchr/testify/assert"
@@ -42,7 +42,7 @@ func TestStreamReaderReturnsErrTooManyEmptyStreamMessages(t *testing.T) {
 	reader := &http.Response{
 		Body: io.NopCloser(bytes.NewReader([]byte("\n\n\n\n"))),
 	}
-	stream := streams.NewStreamReader[groq.ChatCompletionStreamResponse](
+	stream := streams.NewStreamReader[pegwings.ChatCompletionStreamResponse](
 		reader.Body,
 		map[string][]string{
 			"Content-Type": {"text/event-stream"},
@@ -52,7 +52,7 @@ func TestStreamReaderReturnsErrTooManyEmptyStreamMessages(t *testing.T) {
 	_, err := stream.Recv()
 	a.ErrorIs(
 		err,
-		groqerr.ErrTooManyEmptyStreamMessages{},
+		pegwingerrs.ErrTooManyEmptyStreamMessages{},
 		"Did not return error when recv failed",
 		err.Error(),
 	)
@@ -74,7 +74,7 @@ func TestStreamReaderReturnsErrTestErrorAccumulatorWriteFailed(t *testing.T) {
 	_, err := stream.Recv()
 	a.ErrorIs(
 		err,
-		groqerr.ErrTooManyEmptyStreamMessages{},
+		pegwingerrs.ErrTooManyEmptyStreamMessages{},
 		"Did not return error when write failed",
 		err.Error(),
 	)
@@ -95,7 +95,7 @@ func TestStreamReader_TooManyEmptyMessages(t *testing.T) {
 	)
 
 	_, err := stream.Recv()
-	assert.ErrorIs(t, err, groqerr.ErrTooManyEmptyStreamMessages{})
+	assert.ErrorIs(t, err, pegwingerrs.ErrTooManyEmptyStreamMessages{})
 }
 
 // Test the `Close` method

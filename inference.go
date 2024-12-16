@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/conneroisu/pegwings-go/pkg/builders"
-	"github.com/conneroisu/pegwings-go/pkg/groqerr"
+	"github.com/conneroisu/pegwings-go/pkg/pegwingerrs"
 	"github.com/conneroisu/pegwings-go/pkg/schema"
 )
 
@@ -31,7 +31,7 @@ func (c *Client) ChatCompletion(
 		return
 	}
 	err = c.sendRequest(req, &response)
-	reqErr, ok := err.(*groqerr.APIError)
+	reqErr, ok := err.(*pegwingerrs.APIError)
 	if ok && (reqErr.HTTPStatusCode == http.StatusServiceUnavailable ||
 		reqErr.HTTPStatusCode == http.StatusInternalServerError) {
 		time.Sleep(request.RetryDelay)
@@ -89,7 +89,7 @@ func (c *Client) ChatCompletionJSON(
 	}
 	response, err := c.ChatCompletion(ctx, request)
 	if err != nil {
-		reqErr, ok := err.(*groqerr.APIError)
+		reqErr, ok := err.(*pegwingerrs.APIError)
 		if ok && (reqErr.HTTPStatusCode == http.StatusServiceUnavailable ||
 			reqErr.HTTPStatusCode == http.StatusInternalServerError) {
 			time.Sleep(request.RetryDelay)

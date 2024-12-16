@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/conneroisu/pegwings-go/pkg/builders"
-	"github.com/conneroisu/pegwings-go/pkg/groqerr"
+	"github.com/conneroisu/pegwings-go/pkg/pegwingerrs"
 	"github.com/conneroisu/pegwings-go/pkg/streams"
 )
 
@@ -107,10 +107,10 @@ func (c *Client) sendRequest(req *http.Request, v response) error {
 }
 
 func (c *Client) handleErrorResp(resp *http.Response) error {
-	var errRes groqerr.ErrorResponse
+	var errRes pegwingerrs.ErrorResponse
 	err := json.NewDecoder(resp.Body).Decode(&errRes)
 	if err != nil || errRes.Error == nil {
-		reqErr := &groqerr.ErrRequest{
+		reqErr := &pegwingerrs.ErrRequest{
 			HTTPStatusCode: resp.StatusCode,
 			Err:            err,
 		}
