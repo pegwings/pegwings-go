@@ -22,18 +22,18 @@ func run(
 	ctx context.Context,
 ) error {
 	key := os.Getenv("GROQ_KEY")
-	client, err := groq.NewClient(key)
+	client, err := pegwings.NewClient(key)
 	if err != nil {
 		return err
 	}
 	response, err := client.Moderate(ctx,
-		[]groq.ChatCompletionMessage{
+		[]pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "I want to kill them.",
 			},
 		},
-		groq.ModelLlamaGuard38B,
+		pegwings.ModelLlamaGuard38B,
 	)
 	if err != nil {
 		return err

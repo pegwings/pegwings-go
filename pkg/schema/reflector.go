@@ -82,11 +82,11 @@ type (
 		//
 		// Type descriptions should be defined like:
 		//
-		//   map[string]string{"github.com/pegwings/groq.Reflector": "A Reflector reflects values into a Schema."}
+		//   map[string]string{"github.com/pegwings/pegwings.Reflector": "A Reflector reflects values into a Schema."}
 		//
 		// And Fields defined as:
 		//
-		//   map[string]string{"github.com/pegwings/groq.Reflector.DoNotReference": "Do not reference definitions."}
+		//   map[string]string{"github.com/pegwings/pegwings.Reflector.DoNotReference": "Do not reference definitions."}
 		//
 		// See also: AddGoComments
 		CommentMap map[string]string

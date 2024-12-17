@@ -1,4 +1,4 @@
-package groq_test
+package pegwings_test
 
 import (
 	"bytes"
@@ -19,7 +19,7 @@ import (
 	"testing"
 	"time"
 
-	groq "github.com/pegwings/pegwings-go"
+	"github.com/pegwings/pegwings-go"
 	"github.com/pegwings/pegwings-go/pkg/pegwingerrs"
 	"github.com/pegwings/pegwings-go/pkg/test"
 	"github.com/stretchr/testify/assert"
@@ -32,15 +32,15 @@ func TestTestServer(t *testing.T) {
 	num := rand.Intn(100)
 	a := assert.New(t)
 	ctx := context.Background()
-	client, err := groq.NewClient(os.Getenv("GROQ_KEY"))
+	client, err := pegwings.NewClient(os.Getenv("GROQ_KEY"))
 	a.NoError(err, "NewClient error")
 	strm, err := client.ChatCompletionStream(
 		ctx,
-		groq.ChatCompletionRequest{
-			Model: groq.ModelLlama38B8192,
-			Messages: []groq.ChatCompletionMessage{
+		pegwings.ChatCompletionRequest{
+			Model: pegwings.ModelLlama38B8192,
+			Messages: []pegwings.ChatCompletionMessage{
 				{
-					Role: groq.RoleUser,
+					Role: pegwings.RoleUser,
 					Content: fmt.Sprintf(`
 problem: %d
 You have a six-sided die that you roll once. Let $R{i}$ denote the event that the roll is $i$. Let $G{j}$ denote the event that the roll is greater than $j$. Let $E$ denote the event that the roll of the die is even-numbered.
@@ -77,33 +77,33 @@ func TestModerate(t *testing.T) {
 		handleModerationEndpoint,
 	)
 	mod, err := client.Moderate(context.Background(),
-		[]groq.ChatCompletionMessage{
+		[]pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "I want to kill them.",
 			},
 		},
-		groq.ModelLlamaGuard38B,
+		pegwings.ModelLlamaGuard38B,
 	)
 	a := assert.New(t)
 	a.NoError(err, "Moderation error")
 	a.Contains(
 		mod,
-		groq.ModerationViolentCrimes,
+		pegwings.ModerationViolentCrimes,
 	)
 }
 
 // handleModerationEndpoint handles the moderation endpoint.
 func handleModerationEndpoint(w http.ResponseWriter, r *http.Request) {
-	response := groq.ChatCompletionResponse{
+	response := pegwings.ChatCompletionResponse{
 		ID:      "chatcmpl-123",
 		Object:  "chat.completion",
 		Created: 1693721698,
-		Model:   groq.ChatModel(groq.ModelLlamaGuard38B),
-		Choices: []groq.ChatCompletionChoice{
+		Model:   pegwings.ChatModel(pegwings.ModelLlamaGuard38B),
+		Choices: []pegwings.ChatCompletionChoice{
 			{
-				Message: groq.ChatCompletionMessage{
-					Role:    groq.RoleAssistant,
+				Message: pegwings.ChatCompletionMessage{
+					Role:    pegwings.RoleAssistant,
 					Content: "unsafe\nS1,S2",
 				},
 				FinishReason: "stop",
@@ -131,7 +131,7 @@ func handleModerationEndpoint(w http.ResponseWriter, r *http.Request) {
 	}
 }
 func setupGroqTestServer() (
-	client *groq.Client,
+	client *pegwings.Client,
 	server *test.ServerTest,
 	teardown func(),
 ) {
@@ -139,9 +139,9 @@ func setupGroqTestServer() (
 	ts := server.GroqTestServer()
 	ts.Start()
 	teardown = ts.Close
-	client, err := groq.NewClient(
+	client, err := pegwings.NewClient(
 		test.GetTestToken(),
-		groq.WithBaseURL(ts.URL+"/v1"),
+		pegwings.WithBaseURL(ts.URL+"/v1"),
 	)
 	if err != nil {
 		log.Fatal(err)
@@ -149,7 +149,7 @@ func setupGroqTestServer() (
 	return
 }
 func TestEmptyKeyClientCreation(t *testing.T) {
-	client, err := groq.NewClient("")
+	client, err := pegwings.NewClient("")
 	a := assert.New(t)
 	a.Error(err, "NewClient should return error")
 	a.Nil(client, "NewClient should return nil")
@@ -180,12 +180,12 @@ func TestChatCompletionStream(t *testing.T) {
 	)
 	stream, err := client.ChatCompletionStream(
 		context.Background(),
-		groq.ChatCompletionRequest{
+		pegwings.ChatCompletionRequest{
 			MaxTokens: 5,
-			Model:     groq.ModelLlama38B8192,
-			Messages: []groq.ChatCompletionMessage{
+			Model:     pegwings.ModelLlama38B8192,
+			Messages: []pegwings.ChatCompletionMessage{
 				{
-					Role:    groq.RoleUser,
+					Role:    pegwings.RoleUser,
 					Content: "Hello!",
 				},
 			},
@@ -194,16 +194,16 @@ func TestChatCompletionStream(t *testing.T) {
 	)
 	a.NoError(err, "CreateCompletionStream returned error")
 	defer stream.Close()
-	expectedResponses := []groq.ChatCompletionStreamResponse{
+	expectedResponses := []pegwings.ChatCompletionStreamResponse{
 		{
 			ID:                "1",
 			Object:            "completion",
 			Created:           1598069254,
-			Model:             groq.ModelLlama38B8192,
+			Model:             pegwings.ModelLlama38B8192,
 			SystemFingerprint: "fp_d9767fc5b9",
-			Choices: []groq.ChatCompletionStreamChoice{
+			Choices: []pegwings.ChatCompletionStreamChoice{
 				{
-					Delta: groq.ChatCompletionStreamChoiceDelta{
+					Delta: pegwings.ChatCompletionStreamChoiceDelta{
 						Content: "response1",
 					},
 					FinishReason: "max_tokens",
@@ -214,11 +214,11 @@ func TestChatCompletionStream(t *testing.T) {
 			ID:                "2",
 			Object:            "completion",
 			Created:           1598069255,
-			Model:             groq.ModelLlama38B8192,
+			Model:             pegwings.ModelLlama38B8192,
 			SystemFingerprint: "fp_d9767fc5b9",
-			Choices: []groq.ChatCompletionStreamChoice{
+			Choices: []pegwings.ChatCompletionStreamChoice{
 				{
-					Delta: groq.ChatCompletionStreamChoiceDelta{
+					Delta: pegwings.ChatCompletionStreamChoiceDelta{
 						Content: "response2",
 					},
 					FinishReason: "max_tokens",
@@ -293,12 +293,12 @@ func TestChatCompletionStreamError(t *testing.T) {
 	)
 	stream, err := client.ChatCompletionStream(
 		context.Background(),
-		groq.ChatCompletionRequest{
+		pegwings.ChatCompletionRequest{
 			MaxTokens: 5,
-			Model:     groq.ModelLlama38B8192,
-			Messages: []groq.ChatCompletionMessage{
+			Model:     pegwings.ModelLlama38B8192,
+			Messages: []pegwings.ChatCompletionMessage{
 				{
-					Role:    groq.RoleUser,
+					Role:    pegwings.RoleUser,
 					Content: "Hello!",
 				},
 			},
@@ -337,12 +337,12 @@ func TestChatCompletionStreamWithHeaders(t *testing.T) {
 	)
 	stream, err := client.ChatCompletionStream(
 		context.Background(),
-		groq.ChatCompletionRequest{
+		pegwings.ChatCompletionRequest{
 			MaxTokens: 5,
-			Model:     groq.ModelLlama38B8192,
-			Messages: []groq.ChatCompletionMessage{
+			Model:     pegwings.ModelLlama38B8192,
+			Messages: []pegwings.ChatCompletionMessage{
 				{
-					Role:    groq.RoleUser,
+					Role:    pegwings.RoleUser,
 					Content: "Hello!",
 				},
 			},
@@ -391,12 +391,12 @@ func TestChatCompletionStreamWithRatelimitHeaders(t *testing.T) {
 	)
 	stream, err := client.ChatCompletionStream(
 		context.Background(),
-		groq.ChatCompletionRequest{
+		pegwings.ChatCompletionRequest{
 			MaxTokens: 5,
-			Model:     groq.ModelLlama38B8192,
-			Messages: []groq.ChatCompletionMessage{
+			Model:     pegwings.ModelLlama38B8192,
+			Messages: []pegwings.ChatCompletionMessage{
 				{
-					Role:    groq.RoleUser,
+					Role:    pegwings.RoleUser,
 					Content: "Hello!",
 				},
 			},
@@ -483,12 +483,12 @@ func TestChatCompletionStreamErrorWithDataPrefix(t *testing.T) {
 	)
 	stream, err := client.ChatCompletionStream(
 		context.Background(),
-		groq.ChatCompletionRequest{
+		pegwings.ChatCompletionRequest{
 			MaxTokens: 5,
-			Model:     groq.ModelLlama38B8192,
-			Messages: []groq.ChatCompletionMessage{
+			Model:     pegwings.ModelLlama38B8192,
+			Messages: []pegwings.ChatCompletionMessage{
 				{
-					Role:    groq.RoleUser,
+					Role:    pegwings.RoleUser,
 					Content: "Hello!",
 				},
 			},
@@ -526,12 +526,12 @@ func TestChatCompletionStreamRateLimitError(t *testing.T) {
 	)
 	_, err := client.ChatCompletionStream(
 		context.Background(),
-		groq.ChatCompletionRequest{
+		pegwings.ChatCompletionRequest{
 			MaxTokens: 5,
-			Model:     groq.ModelLlama38B8192,
-			Messages: []groq.ChatCompletionMessage{
+			Model:     pegwings.ModelLlama38B8192,
+			Messages: []pegwings.ChatCompletionMessage{
 				{
-					Role:    groq.RoleUser,
+					Role:    pegwings.RoleUser,
 					Content: "Hello!",
 				},
 			},
@@ -569,33 +569,33 @@ func TestChatCompletionStreamStreamOptions(t *testing.T) {
 	)
 	stream, err := client.ChatCompletionStream(
 		context.Background(),
-		groq.ChatCompletionRequest{
+		pegwings.ChatCompletionRequest{
 			MaxTokens: 5,
-			Model:     groq.ModelLlama38B8192,
-			Messages: []groq.ChatCompletionMessage{
+			Model:     pegwings.ModelLlama38B8192,
+			Messages: []pegwings.ChatCompletionMessage{
 				{
-					Role:    groq.RoleUser,
+					Role:    pegwings.RoleUser,
 					Content: "Hello!",
 				},
 			},
 			Stream: true,
-			StreamOptions: &groq.StreamOptions{
+			StreamOptions: &pegwings.StreamOptions{
 				IncludeUsage: true,
 			},
 		},
 	)
 	a.NoError(err, "CreateCompletionStream returned error")
 	defer stream.Close()
-	expectedResponses := []groq.ChatCompletionStreamResponse{
+	expectedResponses := []pegwings.ChatCompletionStreamResponse{
 		{
 			ID:                "1",
 			Object:            "completion",
 			Created:           1598069254,
-			Model:             groq.ModelLlama38B8192,
+			Model:             pegwings.ModelLlama38B8192,
 			SystemFingerprint: "fp_d9767fc5b9",
-			Choices: []groq.ChatCompletionStreamChoice{
+			Choices: []pegwings.ChatCompletionStreamChoice{
 				{
-					Delta: groq.ChatCompletionStreamChoiceDelta{
+					Delta: pegwings.ChatCompletionStreamChoiceDelta{
 						Content: "response1",
 					},
 					FinishReason: "max_tokens",
@@ -606,11 +606,11 @@ func TestChatCompletionStreamStreamOptions(t *testing.T) {
 			ID:                "2",
 			Object:            "completion",
 			Created:           1598069255,
-			Model:             groq.ModelLlama38B8192,
+			Model:             pegwings.ModelLlama38B8192,
 			SystemFingerprint: "fp_d9767fc5b9",
-			Choices: []groq.ChatCompletionStreamChoice{
+			Choices: []pegwings.ChatCompletionStreamChoice{
 				{
-					Delta: groq.ChatCompletionStreamChoiceDelta{
+					Delta: pegwings.ChatCompletionStreamChoiceDelta{
 						Content: "response2",
 					},
 					FinishReason: "max_tokens",
@@ -621,10 +621,10 @@ func TestChatCompletionStreamStreamOptions(t *testing.T) {
 			ID:                "3",
 			Object:            "completion",
 			Created:           1598069256,
-			Model:             groq.ModelLlama38B8192,
+			Model:             pegwings.ModelLlama38B8192,
 			SystemFingerprint: "fp_d9767fc5b9",
-			Choices:           []groq.ChatCompletionStreamChoice{},
-			Usage: &groq.Usage{
+			Choices:           []pegwings.ChatCompletionStreamChoice{},
+			Usage: &pegwings.Usage{
 				PromptTokens:     1,
 				CompletionTokens: 1,
 				TotalTokens:      2,
@@ -669,7 +669,7 @@ func TestChatCompletionStreamStreamOptions(t *testing.T) {
 // Helper funcs.
 func compareChatResponses(
 	t *testing.T,
-	r1, r2 groq.ChatCompletionStreamResponse,
+	r1, r2 pegwings.ChatCompletionStreamResponse,
 ) bool {
 	if r1.ID != r2.ID {
 		t.Logf("Not Equal ID: %v", r1.ID)
@@ -706,7 +706,7 @@ func compareChatResponses(
 	return true
 }
 func compareChatStreamResponseChoices(
-	c1, c2 groq.ChatCompletionStreamChoice,
+	c1, c2 pegwings.ChatCompletionStreamChoice,
 ) bool {
 	if c1.Index != c2.Index {
 		return false
@@ -728,7 +728,7 @@ func TestAudio(t *testing.T) {
 	server.RegisterHandler("/v1/audio/translations", handleAudioEndpoint)
 	testcases := []struct {
 		name     string
-		createFn func(context.Context, groq.AudioRequest) (groq.AudioResponse, error)
+		createFn func(context.Context, pegwings.AudioRequest) (pegwings.AudioResponse, error)
 	}{
 		{
 			"transcribe",
@@ -747,18 +747,18 @@ func TestAudio(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			path := filepath.Join(dir, "fake.mp3")
 			test.CreateTestFile(t, path)
-			req := groq.AudioRequest{
+			req := pegwings.AudioRequest{
 				FilePath: path,
-				Model:    groq.ModelWhisperLargeV3,
+				Model:    pegwings.ModelWhisperLargeV3,
 			}
 			_, err := tc.createFn(ctx, req)
 			a.NoError(err, "audio API error")
 		})
 		t.Run(tc.name+" (with reader)", func(t *testing.T) {
-			req := groq.AudioRequest{
+			req := pegwings.AudioRequest{
 				FilePath: "fake.webm",
 				Reader:   bytes.NewBuffer([]byte(`some webm binary data`)),
-				Model:    groq.ModelWhisperLargeV3,
+				Model:    pegwings.ModelWhisperLargeV3,
 			}
 			_, err := tc.createFn(ctx, req)
 			a.NoError(err, "audio API error")
@@ -772,7 +772,7 @@ func TestAudioWithOptionalArgs(t *testing.T) {
 	server.RegisterHandler("/v1/audio/translations", handleAudioEndpoint)
 	testcases := []struct {
 		name     string
-		createFn func(context.Context, groq.AudioRequest) (groq.AudioResponse, error)
+		createFn func(context.Context, pegwings.AudioRequest) (pegwings.AudioResponse, error)
 	}{
 		{
 			"transcribe",
@@ -791,13 +791,13 @@ func TestAudioWithOptionalArgs(t *testing.T) {
 			a := assert.New(t)
 			path := filepath.Join(dir, "fake.mp3")
 			test.CreateTestFile(t, path)
-			req := groq.AudioRequest{
+			req := pegwings.AudioRequest{
 				FilePath:    path,
-				Model:       groq.ModelWhisperLargeV3,
+				Model:       pegwings.ModelWhisperLargeV3,
 				Prompt:      "用简体中文",
 				Temperature: 0.5,
 				Language:    "zh",
-				Format:      groq.FormatSRT,
+				Format:      pegwings.FormatSRT,
 			}
 			_, err := tc.createFn(ctx, req)
 			a.NoError(err, "audio API error")

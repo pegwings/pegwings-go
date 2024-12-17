@@ -49,9 +49,9 @@ func TestRun(t *testing.T) {
 		}),
 	)
 	a.NoError(err)
-	history := []groq.ChatCompletionMessage{
+	history := []pegwings.ChatCompletionMessage{
 		{
-			Role:    groq.RoleUser,
+			Role:    pegwings.RoleUser,
 			Content: "",
 			ToolCalls: []tools.ToolCall{
 				{
@@ -62,11 +62,11 @@ func TestRun(t *testing.T) {
 			},
 		},
 	}
-	resp, err := client.Run(ctx, groq.ChatCompletionResponse{
-		Choices: []groq.ChatCompletionChoice{
+	resp, err := client.Run(ctx, pegwings.ChatCompletionResponse{
+		Choices: []pegwings.ChatCompletionChoice{
 			{
 				Message:      history[0],
-				FinishReason: groq.ReasonFunctionCall,
+				FinishReason: pegwings.ReasonFunctionCall,
 			},
 		},
 	})

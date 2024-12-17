@@ -21,25 +21,25 @@ func run(
 	ctx context.Context,
 ) error {
 	key := os.Getenv("GROQ_KEY")
-	client, err := groq.NewClient(key)
+	client, err := pegwings.NewClient(key)
 	if err != nil {
 		return err
 	}
 	response, err := client.ChatCompletion(
 		ctx,
-		groq.ChatCompletionRequest{
-			Model: groq.ModelLlama3211BVisionPreview,
-			Messages: []groq.ChatCompletionMessage{
+		pegwings.ChatCompletionRequest{
+			Model: pegwings.ModelLlama3211BVisionPreview,
+			Messages: []pegwings.ChatCompletionMessage{
 				{
-					Role: groq.RoleUser,
-					MultiContent: []groq.ChatMessagePart{
+					Role: pegwings.RoleUser,
+					MultiContent: []pegwings.ChatMessagePart{
 						{
-							Type: groq.ChatMessagePartTypeText,
+							Type: pegwings.ChatMessagePartTypeText,
 							Text: "What is the contents of the image?",
 						},
 						{
-							Type: groq.ChatMessagePartTypeImageURL,
-							ImageURL: &groq.ChatMessageImageURL{
+							Type: pegwings.ChatMessagePartTypeImageURL,
+							ImageURL: &pegwings.ChatMessageImageURL{
 								URL:    "https://cdnimg.webstaurantstore.com/images/products/large/87539/251494.jpg",
 								Detail: "auto",
 							},

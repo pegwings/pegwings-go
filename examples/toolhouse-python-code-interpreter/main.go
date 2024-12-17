@@ -40,13 +40,13 @@ func run(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	client, err := groq.NewClient(groqKey)
+	client, err := pegwings.NewClient(groqKey)
 	if err != nil {
 		return err
 	}
-	history := []groq.ChatCompletionMessage{
+	history := []pegwings.ChatCompletionMessage{
 		{
-			Role:    groq.RoleUser,
+			Role:    pegwings.RoleUser,
 			Content: "Write a python function to print the first 10 prime numbers containing the number 3 then respond with the answer. DO NOT GUESS WHAT THE OUTPUT SHOULD BE. MAKE SURE TO CALL THE TOOL GIVEN.",
 		},
 	}
@@ -54,8 +54,8 @@ func run(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	re, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model:      groq.ModelLlama3Groq70B8192ToolUsePreview,
+	re, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model:      pegwings.ModelLlama3Groq70B8192ToolUsePreview,
 		Messages:   history,
 		Tools:      tools,
 		ToolChoice: "required",
@@ -69,8 +69,8 @@ func run(ctx context.Context) error {
 		return fmt.Errorf("failed to run tool: %w", err)
 	}
 	history = append(history, r...)
-	finalr, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model:     groq.ModelLlama3Groq70B8192ToolUsePreview,
+	finalr, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model:     pegwings.ModelLlama3Groq70B8192ToolUsePreview,
 		Messages:  history,
 		MaxTokens: 2000,
 	})

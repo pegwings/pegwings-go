@@ -25,18 +25,18 @@ func TestUnitExtension(t *testing.T) {
 		toolhouse.WithLogger(test.DefaultLogger),
 	)
 	a.NoError(err)
-	client, err := groq.NewClient(os.Getenv("GROQ_KEY"))
+	client, err := pegwings.NewClient(os.Getenv("GROQ_KEY"))
 	a.NoError(err)
-	history := []groq.ChatCompletionMessage{
+	history := []pegwings.ChatCompletionMessage{
 		{
-			Role:    groq.RoleUser,
+			Role:    pegwings.RoleUser,
 			Content: "Write a python function to print the first 10 prime numbers containing the number 3 then respond with the answer. DO NOT GUESS WHAT THE OUTPUT SHOULD BE. MAKE SURE TO CALL THE TOOL GIVEN.",
 		},
 	}
 	tooling, err := ext.GetTools(ctx)
 	a.NoError(err)
-	re, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model:      groq.ModelLlama3Groq70B8192ToolUsePreview,
+	re, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model:      pegwings.ModelLlama3Groq70B8192ToolUsePreview,
 		Messages:   history,
 		Tools:      tooling,
 		ToolChoice: "required",
@@ -46,8 +46,8 @@ func TestUnitExtension(t *testing.T) {
 	r, err := ext.Run(ctx, re)
 	a.NoError(err)
 	history = append(history, r...)
-	finalr, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model:     groq.ModelLlama3Groq70B8192ToolUsePreview,
+	finalr, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model:     pegwings.ModelLlama3Groq70B8192ToolUsePreview,
 		Messages:  history,
 		MaxTokens: 2000,
 	})

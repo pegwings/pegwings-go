@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"testing"
 
-	groq "github.com/pegwings/pegwings-go"
+	"github.com/pegwings/pegwings-go"
 	"github.com/pegwings/pegwings-go/pkg/pegwingerrs"
 	"github.com/pegwings/pegwings-go/pkg/streams"
 	"github.com/pegwings/pegwings-go/pkg/test"
@@ -16,7 +16,7 @@ import (
 
 // TestStreamReaderReturnsUnmarshalerErrors tests the stream reader returns an unmarshaler error.
 func TestStreamReaderReturnsUnmarshalerErrors(t *testing.T) {
-	stream := &streams.StreamReader[groq.ChatCompletionStreamResponse]{
+	stream := &streams.StreamReader[pegwings.ChatCompletionStreamResponse]{
 		ErrAccumulator: streams.NewErrorAccumulator(),
 	}
 
@@ -64,7 +64,7 @@ func TestStreamReaderReturnsErrTestErrorAccumulatorWriteFailed(t *testing.T) {
 	reader := &http.Response{
 		Body: io.NopCloser(bytes.NewReader([]byte("\n"))),
 	}
-	stream := streams.NewStreamReader[groq.ChatCompletionStreamResponse](
+	stream := streams.NewStreamReader[pegwings.ChatCompletionStreamResponse](
 		reader.Body,
 		map[string][]string{
 			"Content-Type": {"text/event-stream"},
@@ -86,7 +86,7 @@ func TestStreamReader_TooManyEmptyMessages(t *testing.T) {
 	resp := &http.Response{
 		Body: io.NopCloser(bytes.NewBufferString(data)),
 	}
-	stream := streams.NewStreamReader[*groq.ChatCompletionStreamResponse](
+	stream := streams.NewStreamReader[*pegwings.ChatCompletionStreamResponse](
 		resp.Body,
 		map[string][]string{
 			"Content-Type": {"text/event-stream"},
@@ -103,7 +103,7 @@ func TestStreamReader_Close(t *testing.T) {
 	resp := &http.Response{
 		Body: io.NopCloser(bytes.NewBufferString("")),
 	}
-	stream := streams.NewStreamReader[groq.ChatCompletionStreamResponse](
+	stream := streams.NewStreamReader[pegwings.ChatCompletionStreamResponse](
 		resp.Body,
 		map[string][]string{
 			"Content-Type": {"text/event-stream"},

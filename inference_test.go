@@ -1,4 +1,4 @@
-package groq_test
+package pegwings_test
 
 import (
 	"bytes"
@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	groq "github.com/pegwings/pegwings-go"
+	"github.com/pegwings/pegwings-go"
 	"github.com/pegwings/pegwings-go/pkg/builders"
 	"github.com/pegwings/pegwings-go/pkg/test"
 	"github.com/pegwings/pegwings-go/pkg/tools"
@@ -22,16 +22,16 @@ func TestChat(t *testing.T) {
 	ctx := context.Background()
 	a := assert.New(t)
 	ts := test.NewTestServer()
-	returnObj := groq.ChatCompletionResponse{
+	returnObj := pegwings.ChatCompletionResponse{
 		ID:      "chatcmpl-123",
 		Object:  "chat.completion.chunk",
 		Created: 1693721698,
 		Model:   "llama3-groq-70b-8192-tool-use-preview",
-		Choices: []groq.ChatCompletionChoice{
+		Choices: []pegwings.ChatCompletionChoice{
 			{
 				Index: 0,
-				Message: groq.ChatCompletionMessage{
-					Role:    groq.RoleAssistant,
+				Message: pegwings.ChatCompletionMessage{
+					Role:    pegwings.RoleAssistant,
 					Content: "Hello!",
 				},
 			},
@@ -49,16 +49,16 @@ func TestChat(t *testing.T) {
 	})
 	testS := ts.GroqTestServer()
 	testS.Start()
-	client, err := groq.NewClient(
+	client, err := pegwings.NewClient(
 		test.GetTestToken(),
-		groq.WithBaseURL(testS.URL+"/v1"),
+		pegwings.WithBaseURL(testS.URL+"/v1"),
 	)
 	a.NoError(err)
-	resp, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama3Groq70B8192ToolUsePreview,
-		Messages: []groq.ChatCompletionMessage{
+	resp, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama3Groq70B8192ToolUsePreview,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "Hello!",
 			},
 		},
@@ -76,12 +76,12 @@ func TestAudioWithFailingFormBuilder(t *testing.T) {
 	path := filepath.Join(dir, "fake.mp3")
 	test.CreateTestFile(t, path)
 
-	req := groq.AudioRequest{
+	req := pegwings.AudioRequest{
 		FilePath:    path,
 		Prompt:      "test",
 		Temperature: 0.5,
 		Language:    "en",
-		Format:      groq.FormatSRT,
+		Format:      pegwings.FormatSRT,
 	}
 
 	mockFailedErr := fmt.Errorf("mock form builder fail")
@@ -90,7 +90,7 @@ func TestAudioWithFailingFormBuilder(t *testing.T) {
 	mockBuilder.mockCreateFormFile = func(string, *os.File) error {
 		return mockFailedErr
 	}
-	err := groq.AudioMultipartForm(req, mockBuilder)
+	err := pegwings.AudioMultipartForm(req, mockBuilder)
 	a.ErrorIs(
 		err,
 		mockFailedErr,
@@ -123,7 +123,7 @@ func TestAudioWithFailingFormBuilder(t *testing.T) {
 			failingField,
 		)
 
-		err = groq.AudioMultipartForm(req, mockBuilder)
+		err = pegwings.AudioMultipartForm(req, mockBuilder)
 		a.Error(
 			err,
 			mockFailedErr,
@@ -139,13 +139,13 @@ func TestModeration(t *testing.T) {
 	defer teardown()
 	server.RegisterHandler("/v1/chat/completions", handleModerationEndpoint)
 	mod, err := client.Moderate(ctx,
-		[]groq.ChatCompletionMessage{
+		[]pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "I want to kill them.",
 			},
 		},
-		groq.ModelLlamaGuard38B,
+		pegwings.ModelLlamaGuard38B,
 	)
 	a.NoError(err)
 	a.NotEmpty(mod)
@@ -158,7 +158,7 @@ func TestCreateFileField(t *testing.T) {
 		defer cleanup()
 		path := filepath.Join(dir, "fake.mp3")
 		test.CreateTestFile(t, path)
-		req := groq.AudioRequest{
+		req := pegwings.AudioRequest{
 			FilePath: path,
 		}
 		mockFailedErr := fmt.Errorf("mock form builder fail")
@@ -167,7 +167,7 @@ func TestCreateFileField(t *testing.T) {
 				return mockFailedErr
 			},
 		}
-		err := groq.AudioMultipartForm(req, mockBuilder)
+		err := pegwings.AudioMultipartForm(req, mockBuilder)
 		a.ErrorIs(
 			err,
 			mockFailedErr,
@@ -177,7 +177,7 @@ func TestCreateFileField(t *testing.T) {
 
 	t.Run("createFileField failing reader", func(t *testing.T) {
 		t.Parallel()
-		req := groq.AudioRequest{
+		req := pegwings.AudioRequest{
 			FilePath: "test.wav",
 			Reader:   bytes.NewBuffer([]byte(`wav test contents`)),
 		}
@@ -189,7 +189,7 @@ func TestCreateFileField(t *testing.T) {
 			},
 		}
 
-		err := groq.AudioMultipartForm(req, mockBuilder)
+		err := pegwings.AudioMultipartForm(req, mockBuilder)
 		a.ErrorIs(
 			err,
 			mockFailedErr,
@@ -199,11 +199,11 @@ func TestCreateFileField(t *testing.T) {
 
 	t.Run("createFileField failing open", func(t *testing.T) {
 		t.Parallel()
-		req := groq.AudioRequest{
+		req := pegwings.AudioRequest{
 			FilePath: "non_existing_file.wav",
 		}
 		mockBuilder := builders.NewFormBuilder(&test.FailingErrorBuffer{})
-		err := groq.AudioMultipartForm(req, mockBuilder)
+		err := pegwings.AudioMultipartForm(req, mockBuilder)
 		a.Error(
 			err,
 			"createFileField using file should return error when open file fails",

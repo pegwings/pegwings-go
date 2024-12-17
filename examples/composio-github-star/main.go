@@ -28,7 +28,7 @@ func run(
 	if err != nil {
 		return err
 	}
-	client, err := groq.NewClient(key)
+	client, err := pegwings.NewClient(key)
 	if err != nil {
 		return err
 	}
@@ -51,11 +51,11 @@ func run(
 	if err != nil {
 		return err
 	}
-	chat, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama3Groq70B8192ToolUsePreview,
-		Messages: []groq.ChatCompletionMessage{
+	chat, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama3Groq70B8192ToolUsePreview,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role: groq.RoleUser,
+				Role: pegwings.RoleUser,
 				Content: `
 You are a github star bot. You will be given a repo name and you will star it. 
 Star the repo pegwings/pegwings-go on GitHub.

@@ -7,7 +7,7 @@
 
 ## Features
 
-- Supports all models from [Groq](https://wow.groq.com/) in a type-safe way.
+- Supports all models from [Groq](https://wow.pegwings.com/) in a type-safe way.
 - Supports streaming.
 - Supports moderation.
 - Supports audio transcription.
@@ -85,7 +85,7 @@ Package groq provides a unofficial client for the Groq API.
 
 With specially designed hardware, the Groq API is a super fast way to query open source llms.
 
-API Documentation: https://console.groq.com/docs/quickstart
+API Documentation: https://console.pegwings.com/docs/quickstart
 
 ## Index
 
@@ -318,7 +318,7 @@ var (
     ModelLlama38B8192 ChatModel = "llama3-8b-8192"
     // ModelLlama3Groq70B8192ToolUsePreview is an AI text chat model.
     //
-    // It is created/provided by Groq.
+    // It is created/provided by pegwings.
     //
     // It has 8192 context window.
     //
@@ -329,7 +329,7 @@ var (
     ModelLlama3Groq70B8192ToolUsePreview ChatModel = "llama3-groq-70b-8192-tool-use-preview"
     // ModelLlama3Groq8B8192ToolUsePreview is an AI text chat model.
     //
-    // It is created/provided by Groq.
+    // It is created/provided by pegwings.
     //
     // It has 8192 context window.
     //
@@ -1253,7 +1253,7 @@ const (
 <a name="Usage"></a>
 ## type [Usage](<https://github.com/pegwings/pegwings-go/blob/main/domain.go#L465-L469>)
 
-Usage Represents the total token usage per request to Groq.
+Usage Represents the total token usage per request to pegwings.
 
 ```go
 type Usage struct {

@@ -15,8 +15,8 @@ type (
 	Runner interface {
 		Run(ctx context.Context,
 			user ConnectedAccount,
-			response groq.ChatCompletionResponse) (
-			[]groq.ChatCompletionMessage, error)
+			response pegwings.ChatCompletionResponse) (
+			[]pegwings.ChatCompletionMessage, error)
 	}
 	request struct {
 		ConnectedAccountID string         `json:"connectedAccountId"`
@@ -32,10 +32,10 @@ type (
 func (c *Composio) Run(
 	ctx context.Context,
 	user ConnectedAccount,
-	response groq.ChatCompletionResponse,
-) ([]groq.ChatCompletionMessage, error) {
-	var respH []groq.ChatCompletionMessage
-	if response.Choices[0].FinishReason != groq.ReasonFunctionCall &&
+	response pegwings.ChatCompletionResponse,
+) ([]pegwings.ChatCompletionMessage, error) {
+	var respH []pegwings.ChatCompletionMessage
+	if response.Choices[0].FinishReason != pegwings.ReasonFunctionCall &&
 		response.Choices[0].FinishReason != "tool_calls" {
 		return nil, fmt.Errorf("not a function call")
 	}
@@ -69,10 +69,10 @@ func (c *Composio) Run(
 		if err != nil {
 			return nil, err
 		}
-		respH = append(respH, groq.ChatCompletionMessage{
+		respH = append(respH, pegwings.ChatCompletionMessage{
 			Content: string(body),
 			Name:    toolCall.ID,
-			Role:    groq.RoleFunction,
+			Role:    pegwings.RoleFunction,
 		})
 	}
 	return respH, nil

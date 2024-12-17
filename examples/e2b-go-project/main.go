@@ -12,9 +12,9 @@ import (
 )
 
 var (
-	history = []groq.ChatCompletionMessage{
+	history = []pegwings.ChatCompletionMessage{
 		{
-			Role: groq.RoleUser,
+			Role: pegwings.RoleUser,
 			Content: `
 Given the callable tools provided, create a python project with the following files:
 
@@ -53,7 +53,7 @@ func run(
 ) error {
 	groqKey := os.Getenv("GROQ_KEY")
 	e2bKey := os.Getenv("E2B_API_KEY")
-	client, err := groq.NewClient(groqKey)
+	client, err := pegwings.NewClient(groqKey)
 	if err != nil {
 		return err
 	}
@@ -81,8 +81,8 @@ func run(
 						Description: "The task that is complete.",
 					}}}}})
 	for {
-		chat, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-			Model:     groq.ModelLlama3Groq8B8192ToolUsePreview,
+		chat, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+			Model:     pegwings.ModelLlama3Groq8B8192ToolUsePreview,
 			Messages:  history,
 			MaxTokens: 3000,
 			Tools:     ts,
@@ -90,7 +90,7 @@ func run(
 		if err != nil {
 			return err
 		}
-		if chat.Choices[0].FinishReason == groq.ReasonFunctionCall {
+		if chat.Choices[0].FinishReason == pegwings.ReasonFunctionCall {
 			if chat.Choices[0].Message.FunctionCall.Name == "complete" {
 				break
 			}
@@ -98,8 +98,8 @@ func run(
 		resp, err := sb.RunTooling(ctx, chat)
 		if err != nil {
 			history = append(history,
-				groq.ChatCompletionMessage{
-					Role:    groq.RoleUser,
+				pegwings.ChatCompletionMessage{
+					Role:    pegwings.RoleUser,
 					Content: err.Error(),
 				})
 			continue

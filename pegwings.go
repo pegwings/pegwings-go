@@ -1,4 +1,4 @@
-package groq
+package pegwings
 
 import (
 	"encoding/json"

@@ -4,7 +4,7 @@
 //
 // groq-modeler Version 1.1.2
 
-package groq
+package pegwings
 
 type (
 	// Model is a ai model accessible through the groq api.
@@ -155,7 +155,7 @@ var (
 	ModelLlama38B8192 ChatModel = "llama3-8b-8192"
 	// ModelLlama3Groq70B8192ToolUsePreview is an AI text chat model.
 	//
-	// It is created/provided by Groq.
+	// It is created/provided by pegwings.
 	//
 	// It has 8192 context window.
 	//
@@ -166,7 +166,7 @@ var (
 	ModelLlama3Groq70B8192ToolUsePreview ChatModel = "llama3-groq-70b-8192-tool-use-preview"
 	// ModelLlama3Groq8B8192ToolUsePreview is an AI text chat model.
 	//
-	// It is created/provided by Groq.
+	// It is created/provided by pegwings.
 	//
 	// It has 8192 context window.
 	//

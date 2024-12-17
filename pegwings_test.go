@@ -1,22 +1,22 @@
-package groq_test
+package pegwings_test
 
 import (
 	"log/slog"
 	"net/http"
 	"testing"
 
-	groq "github.com/pegwings/pegwings-go"
+	"github.com/pegwings/pegwings-go"
 	"github.com/stretchr/testify/assert"
 )
 
 // TestClient tests the creation of a new client.
 func TestClient(t *testing.T) {
 	a := assert.New(t)
-	client, err := groq.NewClient(
+	client, err := pegwings.NewClient(
 		"test",
-		groq.WithBaseURL("http://localhost/v1"),
-		groq.WithClient(http.DefaultClient),
-		groq.WithLogger(slog.Default()),
+		pegwings.WithBaseURL("http://localhost/v1"),
+		pegwings.WithClient(http.DefaultClient),
+		pegwings.WithLogger(slog.Default()),
 	)
 	a.NoError(err)
 	a.NotNil(client)

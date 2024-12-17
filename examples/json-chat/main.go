@@ -28,16 +28,16 @@ type Responses []struct {
 func run(
 	ctx context.Context,
 ) error {
-	client, err := groq.NewClient(os.Getenv("GROQ_KEY"))
+	client, err := pegwings.NewClient(os.Getenv("GROQ_KEY"))
 	if err != nil {
 		return err
 	}
 	resp := &Responses{}
-	err = client.ChatCompletionJSON(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama3Groq70B8192ToolUsePreview,
-		Messages: []groq.ChatCompletionMessage{
+	err = client.ChatCompletionJSON(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama3Groq70B8192ToolUsePreview,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "Create 5 short poems in json format with title and text.",
 			},
 		},

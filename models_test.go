@@ -4,7 +4,7 @@
 //
 // groq-modeler Version 1.1.2
 
-package groq_test
+package pegwings_test
 
 import (
 	"context"
@@ -34,13 +34,13 @@ func TestChatModelsGemma29BIt(t *testing.T) {
 	ctx := context.Background()
 	apiKey, err := test.GetAPIKey("GROQ_KEY")
 	a.NoError(err, "GetAPIKey error")
-	client, err := groq.NewClient(apiKey)
+	client, err := pegwings.NewClient(apiKey)
 	a.NoError(err, "NewClient error")
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelGemma29BIt,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelGemma29BIt,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "What is a proface display?",
 			},
 		},
@@ -65,13 +65,13 @@ func TestChatModelsGemma7BIt(t *testing.T) {
 	ctx := context.Background()
 	apiKey, err := test.GetAPIKey("GROQ_KEY")
 	a.NoError(err, "GetAPIKey error")
-	client, err := groq.NewClient(apiKey)
+	client, err := pegwings.NewClient(apiKey)
 	a.NoError(err, "NewClient error")
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelGemma7BIt,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelGemma7BIt,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "What is a proface display?",
 			},
 		},
@@ -96,13 +96,13 @@ func TestChatModelsLlama3170BVersatile(t *testing.T) {
 	ctx := context.Background()
 	apiKey, err := test.GetAPIKey("GROQ_KEY")
 	a.NoError(err, "GetAPIKey error")
-	client, err := groq.NewClient(apiKey)
+	client, err := pegwings.NewClient(apiKey)
 	a.NoError(err, "NewClient error")
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama3170BVersatile,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama3170BVersatile,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "What is a proface display?",
 			},
 		},
@@ -127,13 +127,13 @@ func TestChatModelsLlama318BInstant(t *testing.T) {
 	ctx := context.Background()
 	apiKey, err := test.GetAPIKey("GROQ_KEY")
 	a.NoError(err, "GetAPIKey error")
-	client, err := groq.NewClient(apiKey)
+	client, err := pegwings.NewClient(apiKey)
 	a.NoError(err, "NewClient error")
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama318BInstant,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama318BInstant,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "What is a proface display?",
 			},
 		},
@@ -158,13 +158,13 @@ func TestChatModelsLlama3211BVisionPreview(t *testing.T) {
 	ctx := context.Background()
 	apiKey, err := test.GetAPIKey("GROQ_KEY")
 	a.NoError(err, "GetAPIKey error")
-	client, err := groq.NewClient(apiKey)
+	client, err := pegwings.NewClient(apiKey)
 	a.NoError(err, "NewClient error")
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama3211BVisionPreview,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama3211BVisionPreview,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "What is a proface display?",
 			},
 		},
@@ -189,13 +189,13 @@ func TestChatModelsLlama321BPreview(t *testing.T) {
 	ctx := context.Background()
 	apiKey, err := test.GetAPIKey("GROQ_KEY")
 	a.NoError(err, "GetAPIKey error")
-	client, err := groq.NewClient(apiKey)
+	client, err := pegwings.NewClient(apiKey)
 	a.NoError(err, "NewClient error")
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama321BPreview,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama321BPreview,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "What is a proface display?",
 			},
 		},
@@ -220,13 +220,13 @@ func TestChatModelsLlama323BPreview(t *testing.T) {
 	ctx := context.Background()
 	apiKey, err := test.GetAPIKey("GROQ_KEY")
 	a.NoError(err, "GetAPIKey error")
-	client, err := groq.NewClient(apiKey)
+	client, err := pegwings.NewClient(apiKey)
 	a.NoError(err, "NewClient error")
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama323BPreview,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama323BPreview,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "What is a proface display?",
 			},
 		},
@@ -251,13 +251,13 @@ func TestChatModelsLlama3290BVisionPreview(t *testing.T) {
 	ctx := context.Background()
 	apiKey, err := test.GetAPIKey("GROQ_KEY")
 	a.NoError(err, "GetAPIKey error")
-	client, err := groq.NewClient(apiKey)
+	client, err := pegwings.NewClient(apiKey)
 	a.NoError(err, "NewClient error")
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama3290BVisionPreview,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama3290BVisionPreview,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "What is a proface display?",
 			},
 		},
@@ -282,13 +282,13 @@ func TestChatModelsLlama3370BSpecdec(t *testing.T) {
 	ctx := context.Background()
 	apiKey, err := test.GetAPIKey("GROQ_KEY")
 	a.NoError(err, "GetAPIKey error")
-	client, err := groq.NewClient(apiKey)
+	client, err := pegwings.NewClient(apiKey)
 	a.NoError(err, "NewClient error")
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama3370BSpecdec,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama3370BSpecdec,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "What is a proface display?",
 			},
 		},
@@ -313,13 +313,13 @@ func TestChatModelsLlama3370BVersatile(t *testing.T) {
 	ctx := context.Background()
 	apiKey, err := test.GetAPIKey("GROQ_KEY")
 	a.NoError(err, "GetAPIKey error")
-	client, err := groq.NewClient(apiKey)
+	client, err := pegwings.NewClient(apiKey)
 	a.NoError(err, "NewClient error")
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama3370BVersatile,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama3370BVersatile,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "What is a proface display?",
 			},
 		},
@@ -344,13 +344,13 @@ func TestChatModelsLlama370B8192(t *testing.T) {
 	ctx := context.Background()
 	apiKey, err := test.GetAPIKey("GROQ_KEY")
 	a.NoError(err, "GetAPIKey error")
-	client, err := groq.NewClient(apiKey)
+	client, err := pegwings.NewClient(apiKey)
 	a.NoError(err, "NewClient error")
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama370B8192,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama370B8192,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "What is a proface display?",
 			},
 		},
@@ -375,13 +375,13 @@ func TestChatModelsLlama38B8192(t *testing.T) {
 	ctx := context.Background()
 	apiKey, err := test.GetAPIKey("GROQ_KEY")
 	a.NoError(err, "GetAPIKey error")
-	client, err := groq.NewClient(apiKey)
+	client, err := pegwings.NewClient(apiKey)
 	a.NoError(err, "NewClient error")
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama38B8192,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama38B8192,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "What is a proface display?",
 			},
 		},
@@ -406,13 +406,13 @@ func TestChatModelsLlama3Groq70B8192ToolUsePreview(t *testing.T) {
 	ctx := context.Background()
 	apiKey, err := test.GetAPIKey("GROQ_KEY")
 	a.NoError(err, "GetAPIKey error")
-	client, err := groq.NewClient(apiKey)
+	client, err := pegwings.NewClient(apiKey)
 	a.NoError(err, "NewClient error")
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama3Groq70B8192ToolUsePreview,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama3Groq70B8192ToolUsePreview,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "What is a proface display?",
 			},
 		},
@@ -437,13 +437,13 @@ func TestChatModelsLlama3Groq8B8192ToolUsePreview(t *testing.T) {
 	ctx := context.Background()
 	apiKey, err := test.GetAPIKey("GROQ_KEY")
 	a.NoError(err, "GetAPIKey error")
-	client, err := groq.NewClient(apiKey)
+	client, err := pegwings.NewClient(apiKey)
 	a.NoError(err, "NewClient error")
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama3Groq8B8192ToolUsePreview,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama3Groq8B8192ToolUsePreview,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "What is a proface display?",
 			},
 		},
@@ -468,13 +468,13 @@ func TestChatModelsMixtral8X7B32768(t *testing.T) {
 	ctx := context.Background()
 	apiKey, err := test.GetAPIKey("GROQ_KEY")
 	a.NoError(err, "GetAPIKey error")
-	client, err := groq.NewClient(apiKey)
+	client, err := pegwings.NewClient(apiKey)
 	a.NoError(err, "NewClient error")
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelMixtral8X7B32768,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelMixtral8X7B32768,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "What is a proface display?",
 			},
 		},

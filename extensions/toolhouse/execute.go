@@ -22,12 +22,12 @@ type (
 // Run runs the extension on the given history.
 func (e *Toolhouse) Run(
 	ctx context.Context,
-	response groq.ChatCompletionResponse,
-) ([]groq.ChatCompletionMessage, error) {
-	var respH []groq.ChatCompletionMessage
+	response pegwings.ChatCompletionResponse,
+) ([]pegwings.ChatCompletionMessage, error) {
+	var respH []pegwings.ChatCompletionMessage
 	var toolCall tools.ToolCall
 	e.logger.Debug("Running Toolhouse extension", "response", response)
-	if response.Choices[0].FinishReason != groq.ReasonFunctionCall && response.Choices[0].FinishReason != "tool_calls" {
+	if response.Choices[0].FinishReason != pegwings.ReasonFunctionCall && response.Choices[0].FinishReason != "tool_calls" {
 		return nil, fmt.Errorf("not a function call")
 	}
 	for _, toolCall = range response.Choices[0].Message.ToolCalls {
@@ -60,10 +60,10 @@ func (e *Toolhouse) Run(
 		if err != nil {
 			return nil, err
 		}
-		respH = append(respH, groq.ChatCompletionMessage{
+		respH = append(respH, pegwings.ChatCompletionMessage{
 			Content: runResp.Content.Content,
 			Name:    runResp.Content.Name,
-			Role:    groq.RoleFunction,
+			Role:    pegwings.RoleFunction,
 		})
 	}
 	return respH, nil

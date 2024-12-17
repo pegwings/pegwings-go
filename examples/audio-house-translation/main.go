@@ -20,12 +20,12 @@ func main() {
 func run(
 	ctx context.Context,
 ) error {
-	client, err := groq.NewClient(os.Getenv("GROQ_KEY"))
+	client, err := pegwings.NewClient(os.Getenv("GROQ_KEY"))
 	if err != nil {
 		return err
 	}
-	response, err := client.Translate(ctx, groq.AudioRequest{
-		Model:    groq.ModelWhisperLargeV3,
+	response, err := client.Translate(ctx, pegwings.AudioRequest{
+		Model:    pegwings.ModelWhisperLargeV3,
 		FilePath: "./house-speaks-mandarin.mp3",
 		Prompt:   "english and mandarin",
 	})

@@ -98,13 +98,13 @@ func TestChatModels{{ $model.Name }}(t *testing.T) {
 	ctx := context.Background()
 	apiKey, err := test.GetAPIKey("GROQ_KEY")
 	a.NoError(err, "GetAPIKey error")
-	client, err := groq.NewClient(apiKey)
+	client, err := pegwings.NewClient(apiKey)
 	a.NoError(err, "NewClient error")
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.Model{{ $model.Name }},
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.Model{{ $model.Name }},
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "What is a proface display?",
 			},
 		},

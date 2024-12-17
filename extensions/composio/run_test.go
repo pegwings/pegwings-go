@@ -55,17 +55,17 @@ func TestRun(t *testing.T) {
 	a.NoError(err)
 	ca, err := client.GetConnectedAccounts(ctx, composio.WithShowActiveOnly(true))
 	a.NoError(err)
-	resp, err := client.Run(ctx, ca[0], groq.ChatCompletionResponse{
-		Choices: []groq.ChatCompletionChoice{{
-			Message: groq.ChatCompletionMessage{
-				Role:    groq.RoleUser,
+	resp, err := client.Run(ctx, ca[0], pegwings.ChatCompletionResponse{
+		Choices: []pegwings.ChatCompletionChoice{{
+			Message: pegwings.ChatCompletionMessage{
+				Role:    pegwings.RoleUser,
 				Content: "Hello!",
 				ToolCalls: []tools.ToolCall{{
 					Function: tools.FunctionCall{
 						Name:      "TOOL",
 						Arguments: `{ "foo": "bar", }`,
 					}}}},
-			FinishReason: groq.ReasonFunctionCall,
+			FinishReason: pegwings.ReasonFunctionCall,
 		}}})
 	a.NoError(err)
 	assert.Equal(t, "response1", resp[0].Content)
@@ -88,15 +88,15 @@ func TestUnitRun(t *testing.T) {
 		ctx, composio.WithApp("GITHUB"), composio.WithUseCase("StarRepo"))
 	a.NoError(err)
 	a.NotEmpty(ts)
-	groqClient, err := groq.NewClient(
+	groqClient, err := pegwings.NewClient(
 		os.Getenv("GROQ_KEY"),
 	)
 	a.NoError(err, "NewClient error")
-	response, err := groqClient.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama3Groq8B8192ToolUsePreview,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := groqClient.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama3Groq8B8192ToolUsePreview,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role:    groq.RoleUser,
+				Role:    pegwings.RoleUser,
 				Content: "Star the facebookresearch/spiritlm repository on GitHub",
 			},
 		},

@@ -22,10 +22,10 @@ Package toolhouse provides a Toolhouse extension for groq\-go.
 
 - [type Extension](<#Extension>)
   - [func NewExtension\(apiKey string, opts ...Options\) \(e \*Extension, err error\)](<#NewExtension>)
-  - [func \(e \*Extension\) GetTools\(ctx context.Context\) \(\[\]groq.Tool, error\)](<#Extension.GetTools>)
-  - [func \(e \*Extension\) MustGetTools\(ctx context.Context\) \[\]groq.Tool](<#Extension.MustGetTools>)
-  - [func \(e \*Extension\) MustRun\(ctx context.Context, response groq.ChatCompletionResponse\) \[\]groq.ChatCompletionMessage](<#Extension.MustRun>)
-  - [func \(e \*Extension\) Run\(ctx context.Context, response groq.ChatCompletionResponse\) \(\[\]groq.ChatCompletionMessage, error\)](<#Extension.Run>)
+  - [func \(e \*Extension\) GetTools\(ctx context.Context\) \(\[\]pegwings.Tool, error\)](<#Extension.GetTools>)
+  - [func \(e \*Extension\) MustGetTools\(ctx context.Context\) \[\]pegwings.Tool](<#Extension.MustGetTools>)
+  - [func \(e \*Extension\) MustRun\(ctx context.Context, response pegwings.ChatCompletionResponse\) \[\]pegwings.ChatCompletionMessage](<#Extension.MustRun>)
+  - [func \(e \*Extension\) Run\(ctx context.Context, response pegwings.ChatCompletionResponse\) \(\[\]pegwings.ChatCompletionMessage, error\)](<#Extension.Run>)
 - [type Options](<#Options>)
   - [func WithBaseURL\(baseURL string\) Options](<#WithBaseURL>)
   - [func WithClient\(client \*http.Client\) Options](<#WithClient>)
@@ -57,7 +57,7 @@ NewExtension creates a new Toolhouse extension.
 ### func \(\*Extension\) [GetTools](<https://github.com/pegwings/pegwings-go/blob/main/extensions/toolhouse/tools.go#L28-L30>)
 
 ```go
-func (e *Extension) GetTools(ctx context.Context) ([]groq.Tool, error)
+func (e *Extension) GetTools(ctx context.Context) ([]pegwings.Tool, error)
 ```
 
 GetTools returns a list of tools that the extension can use.
@@ -66,7 +66,7 @@ GetTools returns a list of tools that the extension can use.
 ### func \(\*Extension\) [MustGetTools](<https://github.com/pegwings/pegwings-go/blob/main/extensions/toolhouse/tools.go#L17-L19>)
 
 ```go
-func (e *Extension) MustGetTools(ctx context.Context) []groq.Tool
+func (e *Extension) MustGetTools(ctx context.Context) []pegwings.Tool
 ```
 
 MustGetTools returns a list of tools that the extension can use.
@@ -77,7 +77,7 @@ It panics if an error occurs.
 ### func \(\*Extension\) [MustRun](<https://github.com/pegwings/pegwings-go/blob/main/extensions/toolhouse/run.go#L26-L29>)
 
 ```go
-func (e *Extension) MustRun(ctx context.Context, response groq.ChatCompletionResponse) []groq.ChatCompletionMessage
+func (e *Extension) MustRun(ctx context.Context, response pegwings.ChatCompletionResponse) []pegwings.ChatCompletionMessage
 ```
 
 MustRun runs the extension on the given history.
@@ -88,7 +88,7 @@ It panics if an error occurs.
 ### func \(\*Extension\) [Run](<https://github.com/pegwings/pegwings-go/blob/main/extensions/toolhouse/run.go#L38-L41>)
 
 ```go
-func (e *Extension) Run(ctx context.Context, response groq.ChatCompletionResponse) ([]groq.ChatCompletionMessage, error)
+func (e *Extension) Run(ctx context.Context, response pegwings.ChatCompletionResponse) ([]pegwings.ChatCompletionMessage, error)
 ```
 
 Run runs the extension on the given history.

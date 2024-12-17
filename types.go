@@ -1,4 +1,4 @@
-package groq
+package pegwings
 
 import (
 	"encoding/json"
@@ -433,7 +433,7 @@ type (
 	// Format is the format of a response.
 	// string
 	Format string
-	// Usage Represents the total token usage per request to Groq.
+	// Usage Represents the total token usage per request to pegwings.
 	Usage struct {
 		PromptTokens     int `json:"prompt_tokens"`
 		CompletionTokens int `json:"completion_tokens"`
@@ -470,7 +470,7 @@ const (
 	FormatJSONSchema Format = "json_schema"
 
 	// groqAPIURLv1 is the base URL for the Groq API.
-	groqAPIURLv1 = "https://api.groq.com/openai/v1"
+	groqAPIURLv1 = "https://api.pegwings.com/openai/v1"
 
 	chatCompletionsSuffix endpoint = "/chat/completions"
 	transcriptionsSuffix  endpoint = "/audio/transcriptions"

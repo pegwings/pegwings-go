@@ -31,15 +31,15 @@ func TestSandboxTooling(t *testing.T) {
 		WithCwd("/code"),
 	)
 	a.NoError(err, "NewSandbox error")
-	client, err := groq.NewClient(getapiKey(t, "GROQ_KEY"))
+	client, err := pegwings.NewClient(getapiKey(t, "GROQ_KEY"))
 	a.NoError(err, "NewClient error")
 	tools := sb.GetTools()
 	// ask the ai to create a file with the data "Hello World!" in file "hello.txt"
-	response, err := client.ChatCompletion(ctx, groq.ChatCompletionRequest{
-		Model: groq.ModelLlama3Groq70B8192ToolUsePreview,
-		Messages: []groq.ChatCompletionMessage{
+	response, err := client.ChatCompletion(ctx, pegwings.ChatCompletionRequest{
+		Model: pegwings.ModelLlama3Groq70B8192ToolUsePreview,
+		Messages: []pegwings.ChatCompletionMessage{
 			{
-				Role: groq.RoleUser,
+				Role: pegwings.RoleUser,
 				Content: `
 Create a file called 'hello.txt' with the data:
 <file name="hello.txt">

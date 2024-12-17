@@ -12,7 +12,7 @@ import (
 
 type (
 	// SbFn is a function that can be used to run a tool.
-	SbFn func(ctx context.Context, s *Sandbox, params *Params) (groq.ChatCompletionMessage, error)
+	SbFn func(ctx context.Context, s *Sandbox, params *Params) (pegwings.ChatCompletionMessage, error)
 	// ToolingWrapper is a wrapper for tools.Tool that allows for custom functions working with a sandbox.
 	ToolingWrapper struct {
 		ToolMap map[*tools.Tool]SbFn
@@ -62,14 +62,14 @@ var (
 			ctx context.Context,
 			s *Sandbox,
 			params *Params,
-		) (groq.ChatCompletionMessage, error) {
+		) (pegwings.ChatCompletionMessage, error) {
 			err := s.Mkdir(ctx, params.Path)
 			if err != nil {
-				return groq.ChatCompletionMessage{}, err
+				return pegwings.ChatCompletionMessage{}, err
 			}
-			return groq.ChatCompletionMessage{
+			return pegwings.ChatCompletionMessage{
 				Content: fmt.Sprintf("Created directory %s.", params.Path),
-				Role:    groq.RoleFunction,
+				Role:    pegwings.RoleFunction,
 				Name:    "mkdir",
 			}, nil
 		},
@@ -77,18 +77,18 @@ var (
 			ctx context.Context,
 			s *Sandbox,
 			params *Params,
-		) (groq.ChatCompletionMessage, error) {
+		) (pegwings.ChatCompletionMessage, error) {
 			res, err := s.Ls(ctx, params.Path)
 			if err != nil {
-				return groq.ChatCompletionMessage{}, err
+				return pegwings.ChatCompletionMessage{}, err
 			}
 			jsonBytes, err := json.Marshal(res)
 			if err != nil {
-				return groq.ChatCompletionMessage{}, err
+				return pegwings.ChatCompletionMessage{}, err
 			}
-			return groq.ChatCompletionMessage{
+			return pegwings.ChatCompletionMessage{
 				Content: string(jsonBytes),
-				Role:    groq.RoleFunction,
+				Role:    pegwings.RoleFunction,
 				Name:    "ls",
 			}, nil
 		},
@@ -96,14 +96,14 @@ var (
 			ctx context.Context,
 			s *Sandbox,
 			params *Params,
-		) (groq.ChatCompletionMessage, error) {
+		) (pegwings.ChatCompletionMessage, error) {
 			content, err := s.Read(ctx, params.Path)
 			if err != nil {
-				return groq.ChatCompletionMessage{}, err
+				return pegwings.ChatCompletionMessage{}, err
 			}
-			return groq.ChatCompletionMessage{
+			return pegwings.ChatCompletionMessage{
 				Content: string(content),
-				Role:    groq.RoleFunction,
+				Role:    pegwings.RoleFunction,
 				Name:    "read",
 			}, nil
 		},
@@ -111,14 +111,14 @@ var (
 			ctx context.Context,
 			s *Sandbox,
 			params *Params,
-		) (groq.ChatCompletionMessage, error) {
+		) (pegwings.ChatCompletionMessage, error) {
 			err := s.Write(ctx, params.Path, []byte(params.Data))
 			if err != nil {
-				return groq.ChatCompletionMessage{}, err
+				return pegwings.ChatCompletionMessage{}, err
 			}
-			return groq.ChatCompletionMessage{
+			return pegwings.ChatCompletionMessage{
 				Content: fmt.Sprintf("Successfully wrote to file %s.", params.Path),
-				Role:    groq.RoleFunction,
+				Role:    pegwings.RoleFunction,
 				Name:    "write",
 			}, nil
 		},
@@ -126,22 +126,22 @@ var (
 			ctx context.Context,
 			s *Sandbox,
 			params *Params,
-		) (groq.ChatCompletionMessage, error) {
+		) (pegwings.ChatCompletionMessage, error) {
 			proc, err := s.NewProcess(params.Cmd)
 			if err != nil {
-				return groq.ChatCompletionMessage{}, err
+				return pegwings.ChatCompletionMessage{}, err
 			}
 			e, errCh := proc.SubscribeStdout(ctx)
 			if err != nil {
-				return groq.ChatCompletionMessage{}, err
+				return pegwings.ChatCompletionMessage{}, err
 			}
 			e2, errCh := proc.SubscribeStderr(ctx)
 			if err != nil {
-				return groq.ChatCompletionMessage{}, err
+				return pegwings.ChatCompletionMessage{}, err
 			}
 			err = proc.Start(ctx)
 			if err != nil {
-				return groq.ChatCompletionMessage{}, err
+				return pegwings.ChatCompletionMessage{}, err
 			}
 			buf := new(bytes.Buffer)
 			go func() {
@@ -163,9 +163,9 @@ var (
 				}
 			}()
 			<-proc.Done()
-			return groq.ChatCompletionMessage{
+			return pegwings.ChatCompletionMessage{
 				Content: buf.String(),
-				Role:    groq.RoleFunction,
+				Role:    pegwings.RoleFunction,
 				Name:    "startProcess",
 			}, nil
 		},
@@ -270,12 +270,12 @@ var (
 // RunTooling runs the toolcalls in the response.
 func (s *Sandbox) RunTooling(
 	ctx context.Context,
-	response groq.ChatCompletionResponse,
-) ([]groq.ChatCompletionMessage, error) {
-	if response.Choices[0].FinishReason != groq.ReasonFunctionCall && response.Choices[0].FinishReason != "tool_calls" {
+	response pegwings.ChatCompletionResponse,
+) ([]pegwings.ChatCompletionMessage, error) {
+	if response.Choices[0].FinishReason != pegwings.ReasonFunctionCall && response.Choices[0].FinishReason != "tool_calls" {
 		return nil, fmt.Errorf("not a function call: %v", response.Choices[0].FinishReason)
 	}
-	respH := []groq.ChatCompletionMessage{}
+	respH := []pegwings.ChatCompletionMessage{}
 	for _, tool := range response.Choices[0].Message.ToolCalls {
 		for _, t := range s.toolW.getTools() {
 			if t.Function.Name != tool.Function.Name {
@@ -295,7 +295,7 @@ func (s *Sandbox) runTool(
 	ctx context.Context,
 	tool tools.Tool,
 	call tools.ToolCall,
-) (groq.ChatCompletionMessage, error) {
+) (pegwings.ChatCompletionMessage, error) {
 	s.logger.Debug("running tool", "tool", tool.Function.Name, "call", call.Function.Name)
 	var params *Params
 	err := json.Unmarshal(
@@ -303,21 +303,21 @@ func (s *Sandbox) runTool(
 		&params,
 	)
 	if err != nil {
-		return groq.ChatCompletionMessage{}, err
+		return pegwings.ChatCompletionMessage{}, err
 	}
 	fn, err := s.toolW.GetToolFn(tool.Function.Name)
 	if err != nil {
-		return groq.ChatCompletionMessage{
+		return pegwings.ChatCompletionMessage{
 			Content: err.Error(),
-			Role:    groq.RoleFunction,
+			Role:    pegwings.RoleFunction,
 			Name:    tool.Function.Name,
 		}, err
 	}
 	result, err := fn(ctx, s, params)
 	if err != nil {
-		return groq.ChatCompletionMessage{
+		return pegwings.ChatCompletionMessage{
 			Content: fmt.Sprintf("Error running tool %s: %s", tool.Function.Name, err.Error()),
-			Role:    groq.RoleFunction,
+			Role:    pegwings.RoleFunction,
 			Name:    tool.Function.Name,
 		}, err
 	}

@@ -14,7 +14,7 @@ import (
 )
 
 var (
-	history = []groq.ChatCompletionMessage{}
+	history = []pegwings.ChatCompletionMessage{}
 )
 
 func main() {
@@ -34,7 +34,7 @@ func run(
 	w io.Writer,
 ) error {
 	key := os.Getenv("GROQ_KEY")
-	client, err := groq.NewClient(key)
+	client, err := pegwings.NewClient(key)
 	if err != nil {
 		return err
 	}
@@ -48,7 +48,7 @@ func run(
 
 func input(
 	ctx context.Context,
-	client *groq.Client,
+	client *pegwings.Client,
 	r io.Reader,
 	w io.Writer,
 ) error {
@@ -71,14 +71,14 @@ func input(
 		lines = append(lines, line)
 		break
 	}
-	history = append(history, groq.ChatCompletionMessage{
-		Role:    groq.RoleUser,
+	history = append(history, pegwings.ChatCompletionMessage{
+		Role:    pegwings.RoleUser,
 		Content: strings.Join(lines, "\n"),
 	})
 	output, err := client.ChatCompletionStream(
 		ctx,
-		groq.ChatCompletionRequest{
-			Model:     groq.ModelGemma29BIt,
+		pegwings.ChatCompletionRequest{
+			Model:     pegwings.ModelGemma29BIt,
 			Messages:  history,
 			MaxTokens: 2000,
 		},
@@ -92,7 +92,7 @@ func input(
 		if err != nil {
 			return err
 		}
-		if response.Choices[0].FinishReason == groq.ReasonStop {
+		if response.Choices[0].FinishReason == pegwings.ReasonStop {
 			break
 		}
 		fmt.Fprint(writer, response.Choices[0].Delta.Content)

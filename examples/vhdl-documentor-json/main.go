@@ -47,7 +47,7 @@ func run(
 	ctx context.Context,
 	getenv func(string) string,
 ) error {
-	client, err := groq.NewClient(getenv("GROQ_KEY"))
+	client, err := pegwings.NewClient(getenv("GROQ_KEY"))
 	if err != nil {
 		return err
 	}
@@ -67,10 +67,10 @@ func run(
 		var thoughtThroughCode thoughtThroughCode
 		err = client.ChatCompletionJSON(
 			ctx,
-			groq.ChatCompletionRequest{
-				Model: groq.ModelLlama3Groq70B8192ToolUsePreview,
-				Messages: []groq.ChatCompletionMessage{{
-					Role:    groq.RoleSystem,
+			pegwings.ChatCompletionRequest{
+				Model: pegwings.ModelLlama3Groq70B8192ToolUsePreview,
+				Messages: []pegwings.ChatCompletionMessage{{
+					Role:    pegwings.RoleSystem,
 					Content: prompt,
 				}},
 			},

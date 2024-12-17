@@ -20,12 +20,12 @@ func main() {
 func run(
 	ctx context.Context,
 ) error {
-	client, err := groq.NewClient(os.Getenv("GROQ_KEY"))
+	client, err := pegwings.NewClient(os.Getenv("GROQ_KEY"))
 	if err != nil {
 		return err
 	}
-	response, err := client.Transcribe(ctx, groq.AudioRequest{
-		Model:    groq.ModelWhisperLargeV3,
+	response, err := client.Transcribe(ctx, pegwings.AudioRequest{
+		Model:    pegwings.ModelWhisperLargeV3,
 		FilePath: "./The Roman Emperors who went insane Gregory Aldrete and Lex Fridman.mp3",
 	})
 	if err != nil {
