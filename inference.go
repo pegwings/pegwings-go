@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/pegwings/pegwings-go/pkg/builders"
 	"github.com/pegwings/pegwings-go/pkg/pegwingerrs"
@@ -17,10 +16,11 @@ import (
 
 const (
 	chatCompletionsSuffix endpoint = "/chat/completions"
+	moderationsSuffix     endpoint = "/moderations"
+	embeddingsSuffix      endpoint = "/embeddings"
 	transcriptionsSuffix  endpoint = "/audio/transcriptions"
 	translationsSuffix    endpoint = "/audio/translations"
-	embeddingsSuffix      endpoint = "/embeddings"
-	moderationsSuffix     endpoint = "/moderations"
+	speechSuffix          endpoint = "/audio/speech"
 )
 
 // ChatCompletion method is an API call to create a chat completion.
@@ -40,10 +40,11 @@ func (c *Client) ChatCompletion(
 	}
 	err = c.sendRequest(req, &response)
 	reqErr, ok := err.(*pegwingerrs.APIError)
-	if ok && (reqErr.HTTPStatusCode == http.StatusServiceUnavailable ||
-		reqErr.HTTPStatusCode == http.StatusInternalServerError) {
-		time.Sleep(request.RetryDelay)
-		return c.ChatCompletion(ctx, request)
+	if !ok {
+		return response, fmt.Errorf("error making chat completion request: %w", err)
+	}
+	if reqErr != nil {
+		return response, reqErr
 	}
 	return
 }
@@ -118,11 +119,10 @@ func (c *Client) ChatCompletionJSON(
 	response, err := c.ChatCompletion(ctx, request)
 	if err != nil {
 		reqErr, ok := err.(*pegwingerrs.APIError)
-		if ok && (reqErr.HTTPStatusCode == http.StatusServiceUnavailable ||
-			reqErr.HTTPStatusCode == http.StatusInternalServerError) {
-			time.Sleep(request.RetryDelay)
-			return c.ChatCompletionJSON(ctx, request, output)
+		if !ok {
+			return fmt.Errorf("error making chat completion request: %w", err)
 		}
+		return reqErr
 	}
 	content := response.Choices[0].Message.Content
 	split := strings.Split(content, "```")

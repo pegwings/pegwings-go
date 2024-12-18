@@ -3,10 +3,8 @@ package pegwings
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 	"os"
-	"time"
 
 	"github.com/pegwings/pegwings-go/pkg/builders"
 	"github.com/pegwings/pegwings-go/pkg/pegwingerrs"
@@ -15,19 +13,34 @@ import (
 	"github.com/pegwings/pegwings-go/pkg/tools"
 )
 
+// ImageURLDetail is the detail of the image at the URL.
+//
+// string
+type ImageURLDetail string
+
+// Role is the role of the chat completion message.
+//
+// string
+type Role string
+
+const (
+	// RoleSystem is the system chat message role.
+	RoleSystem Role = "system"
+	// RoleUser is the user chat message role.
+	RoleUser Role = "user"
+	// RoleAssistant is the assistant chat message role.
+	RoleAssistant Role = "assistant"
+	// RoleFunction is the function chat message role.
+	RoleFunction Role = "function"
+	// RoleTool is the tool chat message role.
+	RoleTool Role = "tool"
+)
+
 type (
-	// ImageURLDetail is the detail of the image at the URL.
-	//
-	// string
-	ImageURLDetail string
 	// ChatMessagePartType is the chat message part type.
 	//
 	// string
 	ChatMessagePartType string
-	// Role is the role of the chat completion message.
-	//
-	// string
-	Role string
 	// PromptAnnotation represents the prompt annotation.
 	PromptAnnotation struct {
 		PromptIndex int `json:"prompt_index,omitempty"`
@@ -98,90 +111,22 @@ type (
 		// generated content.
 		Strict bool `json:"strict"`
 	}
-	// ChatCompletionRequest represents a request structure for the chat
-	// completion API.
-	ChatCompletionRequest struct {
-		// Model is the model of the chat completion request.
-		Model ChatModel `json:"model"`
-		// Messages is the messages of the chat completion request.
-		//
-		// These act as the prompt for the model.
-		Messages []ChatCompletionMessage `json:"messages"`
-		// MaxTokens is the max tokens of the chat completion request.
-		MaxTokens int `json:"max_tokens,omitempty"`
-		// Temperature is the temperature of the chat completion
-		// request.
-		Temperature float32 `json:"temperature,omitempty"`
-		// TopP is the top p of the chat completion request.
-		TopP float32 `json:"top_p,omitempty"`
-		// N is the n of the chat completion request.
-		N int `json:"n,omitempty"`
-		// Stream is the stream of the chat completion request.
-		Stream bool `json:"stream,omitempty"`
-		// Stop is the stop of the chat completion request.
-		Stop []string `json:"stop,omitempty"`
-		// PresencePenalty is the presence penalty of the chat
-		// completion request.
-		PresencePenalty float32 `json:"presence_penalty,omitempty"`
-		// ResponseFormat is the response format of the chat completion
-		// request.
-		ResponseFormat *ChatCompletionResponseFormat `json:"response_format,omitempty"`
-		// Seed is the seed of the chat completion request.
-		Seed *int `json:"seed,omitempty"`
-		// FrequencyPenalty is the frequency penalty of the chat
-		// completion request.
-		FrequencyPenalty float32 `json:"frequency_penalty,omitempty"`
-		// LogitBias is must be a token id string (specified by their
-		// token ID in the tokenizer), not a word string.
-		// incorrect: `"logit_bias":{ "You": 6}`, correct: `"logit_bias":{"1639": 6}`
-		// refs: https://platform.openai.com/docs/api-reference/chat/create#chat/create-logit_bias
-		LogitBias map[string]int `json:"logit_bias,omitempty"`
-		// LogProbs indicates whether to return log probabilities of the
-		// output tokens or not. If true, returns the log probabilities
-		// of each output token returned in the content of message.
-		//
-		// This option is currently not available on the
-		// gpt-4-vision-preview model.
-		LogProbs bool `json:"logprobs,omitempty"`
-		// TopLogProbs is an integer between 0 and 5 specifying the
-		// number of most likely tokens to return at each token
-		// position, each with an associated log probability. Logprobs
-		// must be set to true if this parameter is used.
-		TopLogProbs int `json:"top_logprobs,omitempty"`
-		// User is the user of the chat completion request.
-		User string `json:"user,omitempty"`
-		// Tools is the tools of the chat completion request.
-		Tools []tools.Tool `json:"tools,omitempty"`
-		// This can be either a string or an ToolChoice object.
-		ToolChoice any `json:"tool_choice,omitempty"`
-		// Options for streaming response. Only set this when you set stream: true.
-		StreamOptions *StreamOptions `json:"stream_options,omitempty"`
-		// Disable the default behavior of parallel tool calls by setting it: false.
-		ParallelToolCalls any `json:"parallel_tool_calls,omitempty"`
-		// RetryDelay is the delay between retries.
-		RetryDelay time.Duration `json:"-"`
-	}
 	// LogProbs is the top-level structure containing the log probability information.
 	LogProbs struct {
 		// Content is a list of message content tokens with log
 		// probability information.
 		Content []struct {
-			// Token is the token of the log prob.
-			Token string `json:"token"`
-			// LogProb is the log prob of the log prob.
-			LogProb float64 `json:"logprob"`
-			// Omitting the field if it is null
-			Bytes []byte `json:"bytes,omitempty"`
+			LogProb `json:"logprob"`
 			// TopLogProbs is a list of the most likely tokens and
 			// their log probability, at this token position. In
 			// rare cases, there may be fewer than the number of
 			// requested top_logprobs returned.
-			TopLogProbs []TopLogProbs `json:"top_logprobs"`
+			TopLogProbs []LogProb `json:"top_logprobs"`
 		} `json:"content"`
 	}
-	// TopLogProbs represents the top log probs.
-	TopLogProbs struct {
-		// Token is the token of the top log probs.
+	// LogProb represents the top log probs.
+	LogProb struct {
+		// Token is the token that this log probability is for.
 		Token string `json:"token"`
 		// LogProb is the log prob of the top log probs.
 		LogProb float64 `json:"logprob"`
@@ -200,26 +145,6 @@ type (
 		// This is basically the probability of the model choosing the
 		// token.
 		LogProbs *LogProbs `json:"logprobs,omitempty"`
-	}
-	// ChatCompletionResponse represents a response structure for chat
-	// completion API.
-	ChatCompletionResponse struct {
-		// ID is the id of the response.
-		ID string `json:"id"`
-		// Object is the object of the response.
-		Object string `json:"object"`
-		// Created is the created time of the response.
-		Created int64 `json:"created"`
-		// Model is the model of the response.
-		Model ChatModel `json:"model"`
-		// Choices is the choices of the response.
-		Choices []ChatCompletionChoice `json:"choices"`
-		// Usage is the usage of the response.
-		Usage Usage `json:"usage"`
-		// SystemFingerprint is the system fingerprint of the response.
-		SystemFingerprint string `json:"system_fingerprint"`
-		// Header is the header of the response.
-		http.Header
 	}
 	// ChatCompletionStreamChoiceDelta represents a response structure for
 	// chat completion API.
@@ -258,42 +183,6 @@ type (
 		// null value.
 		IncludeUsage bool `json:"include_usage,omitempty"`
 	}
-	// ChatCompletionStreamResponse represents a response structure for chat
-	// completion API.
-	ChatCompletionStreamResponse struct {
-		// ID is the identifier for the chat completion stream response.
-		ID string `json:"id"`
-		// Object is the object type of the chat completion stream
-		// response.
-		Object string `json:"object"`
-		// Created is the creation time of the chat completion stream
-		// response.
-		Created int64 `json:"created"`
-		// Model is the model used for the chat completion stream
-		// response.
-		Model ChatModel `json:"model"`
-		// Choices is the choices for the chat completion stream
-		// response.
-		Choices []ChatCompletionStreamChoice `json:"choices"`
-		// SystemFingerprint is the system fingerprint for the chat
-		// completion stream response.
-		SystemFingerprint string `json:"system_fingerprint"`
-		// PromptAnnotations is the prompt annotations for the chat
-		// completion stream response.
-		PromptAnnotations []PromptAnnotation `json:"prompt_annotations,omitempty"`
-		// PromptFilterResults is the prompt filter results for the chat
-		// completion stream response.
-		PromptFilterResults []struct {
-			Index int `json:"index"`
-		} `json:"prompt_filter_results,omitempty"`
-		// Usage is an optional field that will only be present when you
-		// set stream_options: {"include_usage": true} in your request.
-		//
-		// When present, it contains a null value except for the last
-		// chunk which contains the token usage statistics for the
-		// entire request.
-		Usage *Usage `json:"usage,omitempty"`
-	}
 	// ChatCompletionStream is a stream of ChatCompletionStreamResponse.
 	ChatCompletionStream struct {
 		*streams.StreamReader[*ChatCompletionStreamResponse]
@@ -326,16 +215,6 @@ const (
 )
 
 const (
-	// RoleSystem is the system chat message role.
-	RoleSystem Role = "system"
-	// RoleUser is the user chat message role.
-	RoleUser Role = "user"
-	// RoleAssistant is the assistant chat message role.
-	RoleAssistant Role = "assistant"
-	// RoleFunction is the function chat message role.
-	RoleFunction Role = "function"
-	// RoleTool is the tool chat message role.
-	RoleTool Role = "tool"
 
 	// ImageURLDetailHigh is the high image url detail.
 	ImageURLDetailHigh ImageURLDetail = "high"
@@ -427,7 +306,7 @@ func (r FinishReason) MarshalJSON() ([]byte, error) {
 }
 
 // SetHeader sets the header of the response.
-func (r *ChatCompletionResponse) SetHeader(h http.Header) { r.Header = h }
+func (r *ChatCompletionResponse) SetHeader(h http.Header) { r.header = h }
 
 type (
 	// Format is the format of a response.
@@ -473,58 +352,7 @@ const (
 	groqAPIURLv1 = "https://api.pegwings.com/v1"
 )
 
-const (
-	// TranscriptionTimestampGranularityWord is the word timestamp
-	// granularity.
-	TranscriptionTimestampGranularityWord TranscriptionTimestampGranularity = "word"
-	// TranscriptionTimestampGranularitySegment is the segment timestamp
-	// granularity.
-	TranscriptionTimestampGranularitySegment TranscriptionTimestampGranularity = "segment"
-)
-
 type (
-	// TranscriptionTimestampGranularity is the timestamp granularity for
-	// the transcription.
-	//
-	// string
-	TranscriptionTimestampGranularity string
-	// AudioRequest represents a request structure for audio API.
-	AudioRequest struct {
-		// Model is the model to use for the transcription.
-		Model AudioModel
-		// FilePath is either an existing file in your filesystem or a
-		// filename representing the contents of Reader.
-		FilePath string
-		// Reader is an optional io.Reader when you do not want to use
-		// an existing file.
-		Reader io.Reader
-		// Prompt is the prompt for the transcription.
-		Prompt string
-		// Temperature is the temperature for the transcription.
-		Temperature float32
-		// Language is the language for the transcription. Only for
-		// transcription.
-		Language string
-		// Format is the format for the response.
-		Format Format
-	}
-	// AudioResponse represents a response structure for audio API.
-	AudioResponse struct {
-		// Task is the task of the response.
-		Task string `json:"task"`
-		// Language is the language of the response.
-		Language string `json:"language"`
-		// Duration is the duration of the response.
-		Duration float64 `json:"duration"`
-		// Segments is the segments of the response.
-		Segments Segments `json:"segments"`
-		// Words is the words of the response.
-		Words Words `json:"words"`
-		// Text is the text of the response.
-		Text string `json:"text"`
-
-		header http.Header // Header is the header of the response.
-	}
 	// Words is the words of the audio response.
 	Words []struct {
 		// Word is the textual representation of a word in the audio
@@ -559,14 +387,6 @@ type (
 		NoSpeechProb float64 `json:"no_speech_prob"`
 		// Transient is the transient of the segment.
 		Transient bool `json:"transient"`
-	}
-	// audioTextResponse is the response structure for the audio API when the
-	// response format is text.
-	audioTextResponse struct {
-		// Text is the text of the response.
-		Text string `json:"text"`
-		// Header is the response header.
-		header http.Header `json:"-"`
 	}
 )
 
@@ -758,35 +578,6 @@ var (
 	}
 )
 
-// EmbeddingRequest represents a request structure for embedding API.
-// TODO: update reference to the official API.
-type EmbeddingRequest struct {
-	// Input text to embed, encoded as a string or array of tokens. To embed multiple
-	// inputs in a single request, pass an array of strings or array of token arrays.
-	// The input must not exceed the max input tokens for the model (8192 tokens for
-	// `text-embedding-ada-002`), cannot be an empty string, and any array must be 2048
-	// dimensions or less.
-	// [Example Python code](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken)
-	// for counting tokens.
-	Input string `json:"input,required"`
-	// ID of the model to use. You can use the
-	// [List models](https://platform.openai.com/docs/api-reference/models/list) API to
-	// see all of your available models, or see our
-	// [Model overview](https://platform.openai.com/docs/models) for descriptions of
-	// them.
-	Model EmbeddingModel `json:"model,required"`
-	// The format to return the embeddings in. Can be either `float` or
-	// [`base64`](https://pypi.org/project/pybase64/).
-	EncodingFormat EmbeddingsFormat `json:"encoding_format"`
-	// The number of dimensions the resulting output embeddings should have. Only
-	// supported in `text-embedding-3` and later models.
-	Dimensions int64 `json:"dimensions"`
-	// A unique identifier representing your end-user, which can help OpenAI to monitor
-	// and detect abuse.
-	// [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids).
-	User string `json:"user"`
-}
-
 // # Embeddings
 
 // EmbeddingsFormat is the format for the embedding response.
@@ -838,3 +629,42 @@ type EmbeddingResponse struct {
 
 // SetHeader sets the header of the embedding response.
 func (r EmbeddingResponse) SetHeader(header http.Header) { r.Header = header }
+
+// Voice is the voice for the speech response.
+//
+// string
+type Voice string
+
+const (
+	// TODO: add more voices/fix the ones that are missing/nonexistent
+
+	// VoiceAlexa is the voice for Alexa.
+	VoiceAlexa Voice = "alexa"
+	// VoiceAmanda is the voice for Amanda.
+	VoiceAmanda Voice = "amanda"
+	// VoiceBrian is the voice for Brian.
+	VoiceBrian Voice = "brian"
+	// VoiceCarl is the voice for Carl.
+	VoiceCarl Voice = "carl"
+	// VoiceDavid is the voice for David.
+	VoiceDavid Voice = "david"
+)
+
+// AudioFormat is the a format for audio.
+// string
+type AudioFormat string
+
+const (
+	// AudioFormatMP3 is the mp3 format.
+	AudioFormatMP3 AudioFormat = "mp3"
+	// AudioFormatOpus is the opus format.
+	AudioFormatOpus AudioFormat = "opus"
+	// AudioFormatAAC is the aac format.
+	AudioFormatAAC AudioFormat = "aac"
+	// AudioFormatFLAC is the flac format.
+	AudioFormatFLAC AudioFormat = "flac"
+	// AudioFormatWAV is the wav format.
+	AudioFormatWAV AudioFormat = "wav"
+	// AudioFormatPCM is the pcm format.
+	AudioFormatPCM AudioFormat = "pcm"
+)

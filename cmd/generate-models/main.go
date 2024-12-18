@@ -45,6 +45,8 @@ type (
 		ChatModels       []ResponseModel
 		AudioModels      []ResponseModel
 		ModerationModels []ResponseModel
+		EmeddingModels   []ResponseModel
+		SpeechModels     []ResponseModel
 	}
 )
 

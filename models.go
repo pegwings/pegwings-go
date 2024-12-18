@@ -15,6 +15,9 @@ type (
 
 	// EmbeddingModel is the type for embedding models present on the groq api.
 	EmbeddingModel Model
+
+	// SpeechModel is the type for speech models present on the groq api.
+	SpeechModel Model
 )
 
 var (

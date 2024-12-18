@@ -109,7 +109,6 @@ func TestChatModels{{ $model.Name }}(t *testing.T) {
 			},
 		},
 		MaxTokens: 10,
-		RetryDelay: time.Second * 2,
 	})
 	a.NoError(err, "ChatCompletionJSON error")
 	if len(response.Choices[0].Message.Content) == 0 {
