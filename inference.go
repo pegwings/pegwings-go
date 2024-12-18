@@ -15,6 +15,14 @@ import (
 	"github.com/pegwings/pegwings-go/pkg/schema"
 )
 
+const (
+	chatCompletionsSuffix endpoint = "/chat/completions"
+	transcriptionsSuffix  endpoint = "/audio/transcriptions"
+	translationsSuffix    endpoint = "/audio/translations"
+	embeddingsSuffix      endpoint = "/embeddings"
+	moderationsSuffix     endpoint = "/moderations"
+)
+
 // ChatCompletion method is an API call to create a chat completion.
 func (c *Client) ChatCompletion(
 	ctx context.Context,
@@ -38,6 +46,26 @@ func (c *Client) ChatCompletion(
 		return c.ChatCompletion(ctx, request)
 	}
 	return
+}
+
+// Embedding method is an API call to create an embedding.
+func (c *Client) Embedding(ctx context.Context, request EmbeddingRequest) (EmbeddingResponse, error) {
+	req, err := builders.NewRequest(
+		ctx,
+		c.header,
+		http.MethodPost,
+		c.fullURL(embeddingsSuffix, withModel(request.Model)),
+		builders.WithBody(request),
+	)
+	if err != nil {
+		return EmbeddingResponse{}, err
+	}
+	var resp EmbeddingResponse
+	err = c.sendRequest(req, &resp)
+	if err != nil {
+		return EmbeddingResponse{}, err
+	}
+	return resp, nil
 }
 
 // ChatCompletionStream method is an API call to create a chat completion

@@ -177,7 +177,7 @@ func decodeString(body io.Reader, output *string) error {
 }
 
 func withModel[
-	T ChatModel | AudioModel | ModerationModel,
+	T ChatModel | AudioModel | ModerationModel | EmbeddingModel,
 ](model T) fullURLOption {
 	return func(args *fullURLOptions) {
 		args.model = string(model)

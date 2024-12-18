@@ -470,13 +470,7 @@ const (
 	FormatJSONSchema Format = "json_schema"
 
 	// groqAPIURLv1 is the base URL for the Groq API.
-	groqAPIURLv1 = "https://api.pegwings.com/openai/v1"
-
-	chatCompletionsSuffix endpoint = "/chat/completions"
-	transcriptionsSuffix  endpoint = "/audio/transcriptions"
-	translationsSuffix    endpoint = "/audio/translations"
-	embeddingsSuffix      endpoint = "/embeddings"
-	moderationsSuffix     endpoint = "/moderations"
+	groqAPIURLv1 = "https://api.pegwings.com/v1"
 )
 
 const (
@@ -529,7 +523,7 @@ type (
 		// Text is the text of the response.
 		Text string `json:"text"`
 
-		Header http.Header // Header is the header of the response.
+		header http.Header // Header is the header of the response.
 	}
 	// Words is the words of the audio response.
 	Words []struct {
@@ -577,14 +571,14 @@ type (
 )
 
 // SetHeader sets the header of the response.
-func (r *AudioResponse) SetHeader(header http.Header) { r.Header = header }
+func (r *AudioResponse) SetHeader(header http.Header) { r.header = header }
 
 // SetHeader sets the header of the audio text response.
 func (r *audioTextResponse) SetHeader(header http.Header) { r.header = header }
 
 // toAudioResponse converts the audio text response to an audio response.
 func (r *audioTextResponse) toAudioResponse() AudioResponse {
-	return AudioResponse{Text: r.Text, Header: r.header}
+	return AudioResponse{Text: r.Text, header: r.header}
 }
 
 func (r AudioRequest) hasJSONResponse() bool {
@@ -763,3 +757,84 @@ var (
 		"S14": ModerationCodeInterpreterAbuse,
 	}
 )
+
+// EmbeddingRequest represents a request structure for embedding API.
+// TODO: update reference to the official API.
+type EmbeddingRequest struct {
+	// Input text to embed, encoded as a string or array of tokens. To embed multiple
+	// inputs in a single request, pass an array of strings or array of token arrays.
+	// The input must not exceed the max input tokens for the model (8192 tokens for
+	// `text-embedding-ada-002`), cannot be an empty string, and any array must be 2048
+	// dimensions or less.
+	// [Example Python code](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken)
+	// for counting tokens.
+	Input string `json:"input,required"`
+	// ID of the model to use. You can use the
+	// [List models](https://platform.openai.com/docs/api-reference/models/list) API to
+	// see all of your available models, or see our
+	// [Model overview](https://platform.openai.com/docs/models) for descriptions of
+	// them.
+	Model EmbeddingModel `json:"model,required"`
+	// The format to return the embeddings in. Can be either `float` or
+	// [`base64`](https://pypi.org/project/pybase64/).
+	EncodingFormat EmbeddingsFormat `json:"encoding_format"`
+	// The number of dimensions the resulting output embeddings should have. Only
+	// supported in `text-embedding-3` and later models.
+	Dimensions int64 `json:"dimensions"`
+	// A unique identifier representing your end-user, which can help OpenAI to monitor
+	// and detect abuse.
+	// [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids).
+	User string `json:"user"`
+}
+
+// # Embeddings
+
+// EmbeddingsFormat is the format for the embedding response.
+// string
+type EmbeddingsFormat string
+
+const (
+	// EncodingFormatFloat is the float encoding format.
+	EncodingFormatFloat EmbeddingsFormat = "float"
+	// EncodingFormatBase64 is the base64 encoding format.
+	EncodingFormatBase64 EmbeddingsFormat = "base64"
+)
+
+// EmbeddingObject is the object type for the embedding response.
+// It's value is always "embedding".
+// string
+type EmbeddingObject string
+
+const (
+	// EmbeddingObjectEmbedding is the embedding object type.
+	EmbeddingObjectEmbedding EmbeddingObject = "embedding"
+)
+
+// CreateEmbeddingResponseObject is the object type for the create embedding response.
+// It's value is always "list".
+// string
+type CreateEmbeddingResponseObject string
+
+const (
+	// CreateEmbeddingResponseObjectList is the list object type.
+	CreateEmbeddingResponseObjectList CreateEmbeddingResponseObject = "list"
+)
+
+// EmbeddingResponse represents the response structure for embedding API.
+type EmbeddingResponse struct {
+	Object string `json:"object"`
+	Data   []struct {
+		Object    string    `json:"object"`
+		Index     int       `json:"index"`
+		Embedding []float64 `json:"embedding"`
+	} `json:"data"`
+	Model string `json:"model"`
+	Usage struct {
+		PromptTokens int `json:"prompt_tokens"`
+		TotalTokens  int `json:"total_tokens"`
+	} `json:"usage"`
+	Header http.Header `json:"-"`
+}
+
+// SetHeader sets the header of the embedding response.
+func (r EmbeddingResponse) SetHeader(header http.Header) { r.Header = header }
